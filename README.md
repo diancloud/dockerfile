@@ -14,6 +14,14 @@ docker run -d \
 	 -p 92:9200 -p 93:9300 \
 	 tuanduimao/elasticsearch
 ````
+目录说明
+
+```
+/logs  日志文件目录
+/data  索引数据存放位置 （ 可在 elasticsearch.yml 中定义 ）
+/config 配置文件目录
+```
+
 
 HQ 管理器
 ```
