@@ -67,18 +67,24 @@ docker run -d \
   http://yourhost:8080/
 ```
 
+版本
+```
+Nginx 1.9.7
+PHP 7.0.9
+```
+
 PHP 编译参数: 
 ```bash
-./configure '--prefix=/opt/php7' '--with-config-file-path=/opt/php7/etc' '--enable-fpm' \
-	'--with-fpm-user=www' '--with-fpm-group=www' '--with-mysqli=mysqlnd' '--with-pdo-mysql=mysqlnd' 
-	'--with-iconv-dir' '--with-freetype-dir=/usr' '--with-libxml-dir=/usr' '--with-zlib' '--with-gd' 
-	'--with-jpeg-dir=/usr' '--with-png-dir=/usr' '--with-webp-dir=/usr' '--with-xpm-dir=/usr' 
-	'--with-curl' '--with-mcrypt' '--with-readline' '--with-openssl' '--with-xmlrpc' '--with-bz2' 
-	'--with-gettext' '--with-mysqli' '--with-mhash' '--enable-calendar' '--enable-dba' 
-	'--enable-exif' '--enable-fileinfo' '--enable-ftp' '--enable-sysvshm' '--enable-wddx' '--enable-xml' 
-	'--enable-bcmath' '--enable-shmop' '--enable-sysvsem' '--enable-sysvmsg' '--enable-inline-optimization' 
-	'--enable-mbregex' '--enable-mbstring' '--enable-pcntl' '--enable-sockets' '--enable-gd-native-ttf' '--enable-zip' 
-	'--enable-soap' '--enable-opcache' '--disable-rpath'
+./configure --prefix=/opt/php7 --with-config-file-path=/opt/php7/etc --enable-fpm \
+	--with-fpm-user=www --with-fpm-group=www --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd 
+	--with-iconv-dir --with-freetype-dir=/usr --with-libxml-dir=/usr --with-zlib --with-gd 
+	--with-jpeg-dir=/usr --with-png-dir=/usr --with-webp-dir=/usr --with-xpm-dir=/usr 
+	--with-curl --with-mcrypt --with-readline --with-openssl --with-xmlrpc --with-bz2 
+	--with-gettext --with-mysqli --with-mhash --enable-calendar --enable-dba 
+	--enable-exif --enable-fileinfo --enable-ftp --enable-sysvshm --enable-wddx --enable-xml 
+	--enable-bcmath --enable-shmop --enable-sysvsem --enable-sysvmsg --enable-inline-optimization 
+	--enable-mbregex --enable-mbstring --enable-pcntl --enable-sockets --enable-gd-native-ttf --enable-zip 
+	--enable-soap --enable-opcache --disable-rpath
 ```
 
 [PHP Modules]
@@ -96,6 +102,17 @@ Zend OPcache
 ```
 
 
+Nginx 编译参数:
+```
+./configure  --prefix=/opt/openresty/nginx --with-cc-opt=-O2 --add-module=../ngx_devel_kit-0.2.19 
+	--add-module=../echo-nginx-module-0.58 --add-module=../xss-nginx-module-0.05 --add-module=../ngx_coolkit-0.2rc3 
+	--add-module=../set-misc-nginx-module-0.30 --add-module=../form-input-nginx-module-0.11 --add-module=../encrypted-session-nginx-module-0.04
+	--add-module=../srcache-nginx-module-0.30 --add-module=../ngx_lua-0.10.2 --add-module=../ngx_lua_upstream-0.05 
+	--add-module=../headers-more-nginx-module-0.29 --add-module=../array-var-nginx-module-0.05 
+	--add-module=../memc-nginx-module-0.16 --add-module=../redis2-nginx-module-0.12 --add-module=../redis-nginx-module-0.3.7 
+	--add-module=../rds-json-nginx-module-0.14 --add-module=../rds-csv-nginx-module-0.07 --with-ld-opt=-Wl,-rpath,/opt/openresty/luajit/lib 
+	--with-http_ssl_module
+```
 
 ## Sentry ( 可选 )
 
