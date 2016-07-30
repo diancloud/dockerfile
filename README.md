@@ -38,6 +38,16 @@ SQL 查询插件
 /config/ik/*
 ```
 
+环境信息
+```
+jdk: java8-8u25
+elasticsearch: 1.7.3
+elasticsearch-ik: 1.4.1
+elasticsearch-hq: 0.99.1
+elasticsearch-sql: 1.4.6 ( #m )
+```
+
+
 
 ## Redis
 ```bash
