@@ -40,6 +40,27 @@ SQL 查询插件
 
 
 ## Redis
+```bash
+docker run -d \
+	-v /host/logs:/logs  \
+	-v /host/data:/data  \
+	-v /host/config:/config  \
+	-p 127.0.0.1:63790:6379 \
+	tuanduimao/redis
+```
+
+目录说明
+```
+/logs  日志文件目录
+/data  数据存放目录
+/config 配置文件目录
+```
+
+环境信息
+```
+版本: 3.2.2
+```
+
 
 ## WebServer  ( OpenResty + PHP7 )
 
