@@ -90,7 +90,7 @@ RUN cd /tmp  && \
     wget -q "$DOWN/openresty-1.9.7.5.tar.gz"  && \
     tar xfz openresty-1.9.7.5.tar.gz  && \
     cd openresty-1.9.7.5 && \
-    ./configure --with-luajit --prefix=/opt/openresty && \
+    CFLAGS="-O3 -fPIC"  ./configure --with-luajit --prefix=/opt/openresty && \
     make && \
     make install  && \
     # 
@@ -100,7 +100,7 @@ RUN cd /tmp  && \
     wget -q "$DOWN/mhash-0.9.9.9.tar.gz"  && \
     tar xfz mhash-0.9.9.9.tar.gz  && \
     cd mhash-0.9.9.9 && \
-    ./configure --prefix=/usr && \
+    CFLAGS="-O3 -fPIC"  ./configure --prefix=/usr && \
     make && \
     make install  && \
     # 
@@ -110,7 +110,7 @@ RUN cd /tmp  && \
     wget -q "$DOWN/php-7.0.9.tar.gz"  && \
     tar xfz php-7.0.9.tar.gz && \
     cd php-7.0.9  && \
-    ./configure --prefix=/opt/php7 \
+    CFLAGS="-O3 -fPIC" ./configure --prefix=/opt/php7 \
 	--with-config-file-path=/opt/php7/etc \
 	--enable-fpm \
 	--with-fpm-user=www \
@@ -155,7 +155,7 @@ RUN cd /tmp  && \
 	--enable-zip \
 	--enable-soap \
 	--enable-opcache \
-	--disable-rpath  && \
+	--disable-rpath && \
 	make && make install && \
 	cp /tmp/php-7.0.9/php.ini-production  /opt/php7/etc/php.ini && \
 	echo ";opcache-ext" >>  /opt/php7/etc/php.ini && \
@@ -168,7 +168,7 @@ RUN cd /tmp  && \
     tar xfz phpredis-3.0.0.tar.gz && \
     cd phpredis-3.0.0  && \
     /opt/php7/bin/phpize && \
-    ./configure && \
+    CFLAGS="-O3 -fPIC"  ./configure && \
     make && make install && \
     echo ";redis-ext" >>  /opt/php7/etc/php.ini && \
 	echo "extension=redis.so" >>  /opt/php7/etc/php.ini && \

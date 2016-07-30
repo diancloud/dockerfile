@@ -57,7 +57,7 @@ docker run -d \
 目录说明
 ```
 /logs  日志文件目录
-/data  程序产生数据数据存放位置
+/data  程序产生数据存放目录
 /code  PHP程序目录 (只读)
 /config 配置文件目录
 ```
@@ -67,10 +67,12 @@ docker run -d \
   http://yourhost:8080/
 ```
 
-版本
+环境信息
 ```
-Nginx 1.9.7
-PHP 7.0.9
+Nginx: 1.9.7
+PHP: 7.0.9
+User: www-data
+Group: www-data
 ```
 
 PHP 编译参数: 
