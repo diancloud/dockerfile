@@ -75,7 +75,7 @@ User: www-data
 Group: www-data
 ```
 
-PHP 编译参数: 
+PHP 参数:  `CFLAGS="-O3 -fPIC"`
 ```bash
 ./configure --prefix=/opt/php7 --with-config-file-path=/opt/php7/etc --enable-fpm 
 	--with-fpm-user=www --with-fpm-group=www --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd 
@@ -104,7 +104,7 @@ Zend OPcache
 ```
 
 
-Nginx 编译参数:
+Nginx 参数:
 ```
 ./configure  --prefix=/opt/openresty/nginx --with-cc-opt=-O2 --add-module=../ngx_devel_kit-0.2.19 
 	--add-module=../echo-nginx-module-0.58 --add-module=../xss-nginx-module-0.05 
