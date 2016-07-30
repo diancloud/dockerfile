@@ -15,8 +15,9 @@
 #		 -v /host/logs:/logs  \
 #		 -v /host/data:/data  \
 #		 -v /host/config:/config  \
-#		 -p 920:9200 -p 930:9300 \
-#		 tuanduimao/elasticsearch
+#		 -v /host/code:/code  \
+#		 -p 85:80 \
+#		 tuanduimao/openresty-php7
 #  	 
 #  FROM:
 #  	 FROM tuanduimao/openresty-php7:1.9.7.5

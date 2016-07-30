@@ -39,12 +39,35 @@ SQL 查询插件
 ```
 
 
-
 ## Redis
 
 ## WebServer  ( OpenResty + PHP7 )
 
+```bash
+docker run -d \
+    -v /host/logs:/logs  \
+    -v /host/data:/data  \
+    -v /host/config:/config  \
+    -v /host/code:/code  \
+    -p 8080:80 \
+    tuanduimao/openresty-php7
+```
+
+
+目录说明
+```
+/logs  日志文件目录
+/data  程序产生数据数据存放位置
+/code  PHP程序目录 (只读)
+/config 配置文件目录
+```
+
+访问地址
+```
+  http://yourhost:8080/
+```
+
+
 ## Sentry ( 可选 )
 
 ## Other
-
