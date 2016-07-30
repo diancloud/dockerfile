@@ -2,6 +2,7 @@
 CONF=$CONF
 RENEW=$RENEW
 MASTER=$MASTER
+CNAME="sentinel"
 LOG="/logs/shell.log"
 
 # 是否开启 RENEW
@@ -16,6 +17,7 @@ fi
 
 if [ -z $MASTER ]; then
 	MASTER="server"
+	CNAME="redis"
 fi
 
 if [ ! -d "/defaults/config/$CONF" ]; then
@@ -35,7 +37,7 @@ if [ ! -d "/logs/redis" ]; then
 	mkdir /logs/redis
 fi
  
-"/usr/local/bin/redis-$MASTER" /config/redis.conf  --loglevel verbose  >> $LOG
+"/usr/local/bin/redis-$MASTER" "/config/$CNAME.conf" >> $LOG
 
 # 保持运行状态
 while :;do :;done
