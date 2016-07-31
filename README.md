@@ -3,6 +3,45 @@
 
 
 ## MySQL
+```bash
+docker run -d \
+	 -v /host/logs:/logs  \
+	 -v /host/data:/data  \
+	 -v /host/config:/config  \
+	 -p 127.0.0.1:33060:3306 \
+	 tuanduimao/mysql
+```
+
+
+目录说明
+```
+/logs   日志目录
+/data   数据目录
+/config 配置文件目录
+```
+
+环境信息
+```
+MySQL: Mariadb 10.1.14 ( http://www.mariadb.org/)
+User: mysql
+Group: mysql
+```
+
+管理工具 `my`
+```
+docker exec your_doker_name my
+
+my cu username <hostname> -  新增一个MySQL用户。返回新用户密码
+my du username <hostname>   -  删除一个MySQL用户
+my cd database <username> <hostname>   -  创建一个数据库。可同时设定该数据库的管理员（管理员拥有该库所有权限） 
+my dd database  -  删除一个数据库
+my pd database username <hostname>  - 定该数据库的管理员（管理员拥有该库所有权限） 
+my cud database username  <hostname>   - 创建一个数据库，同时创建一个用户作为该数据管理员。 返回新用户密码
+my dud database username  <hostname>   - 删除一个数据，同时删除一个用户
+my init  - 重新初始化数据（ /data 目录为空时有效 ）
+my ld    - 列出所有数据库
+my lu   - 列出所有用户
+```
 
 ## Elasticsearch
 
@@ -14,8 +53,8 @@ docker run -d \
 	 -p 92:9200 -p 93:9300 \
 	 tuanduimao/elasticsearch
 ````
-目录说明
 
+目录说明
 ```
 /logs  日志文件目录
 /data  索引数据存放位置 （ 可在 elasticsearch.yml 中定义 ）
