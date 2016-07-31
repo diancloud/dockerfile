@@ -8,6 +8,28 @@ if [ ! -z "$RENEW" ]; then
 	rm -rf /config/*
 fi
 
+# 检查用户组
+ug=$(ls -l /config | awk '{print $3:$4}')
+if [ "$ug" != "root:root" ]; then
+	chown -R root:root /config 
+fi
+
+ug=$(ls -l /logs | awk '{print $3:$4}')
+if [ "$ug" != "root:root" ]; then
+	chown -R root:root /logs 
+fi
+
+ug=$(ls -l /data | awk '{print $3:$4}')
+if [ "$ug" != "www-data:www-data" ]; then
+	chown -R www-data:www-data /data 
+fi
+
+ug=$(ls -l /code | awk '{print $3:$4}')
+if [ "$ug" != "root:root" ]; then
+	chown -R root:root /code 
+fi
+
+
 # 更新配置文件
 if [ -z $CONF ]; then
 	CONF="default"
