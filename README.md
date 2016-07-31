@@ -35,7 +35,7 @@ my cu username <hostname> -  新增一个MySQL用户。返回新用户密码
 my du username <hostname>   -  删除一个MySQL用户
 my cd database <username> <hostname>   -  创建一个数据库。可同时设定该数据库的管理员（管理员拥有该库所有权限） 
 my dd database  -  删除一个数据库
-my pd database username <hostname>  - 定该数据库的管理员（管理员拥有该库所有权限） 
+my pd database username <hostname>  - 设定数据库的管理员（管理员拥有该库所有权限） 
 my cud database username  <hostname>   - 创建一个数据库，同时创建一个用户作为该数据管理员。 返回新用户密码
 my dud database username  <hostname>   - 删除一个数据，同时删除一个用户
 my init  - 重新初始化数据（ /data 目录为空时有效 ）
