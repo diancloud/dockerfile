@@ -192,4 +192,35 @@ Nginx 参数:
 
 ## Sentry ( 可选 )
 
+```bash
+docker run -d \
+ -v /host/logs:/logs  \
+ -v /host/data:/data  \
+ -v /host/config:/config  \
+ -p 9000:9000 \
+ tuanduimao/sentry
+```
+
+目录说明
+```
+/logs  日志文件目录
+/data  数据库目录
+/config 配置文件目录
+```
+
+
+环境信息
+```
+Sentry: 8.6.0
+
+管理员账号:  logs@tuanduimao.com
+管理员密码:  logs1234 
+```
+
+访问地址
+```bash
+http://yourhost:9000/
+```
+
+
 ## Other
