@@ -28,9 +28,9 @@
 #     docker run --rm -it tuanduimao/mysql  /bin/sh
 #     
 #  	  docker run --rm -it  \
-#  	  		 -v /home/vagrant/code/dockerfile/mysql/10.1.14/test/logs:/logs  \
-#  	  		 -v /home/vagrant/code/dockerfile/mysql/10.1.14/test/data:/data  \
-#  	  		 -v /home/vagrant/code/dockerfile/mysql/10.1.14/test/config:/config  \
+#  	  		 -v /home/vagrant/test/mysql/logs:/logs  \
+#  	  		 -v /home/vagrant/test/mysql/data:/data  \
+#  	  		 -v /home/vagrant/test/mysql/config:/config  \
 #  	  		 -p 33060:3306 \
 #  	  		 tuanduimao/mysql  /bin/sh
 #  	  
