@@ -51,7 +51,7 @@ RUN apk update && \
 	adduser sentry sentry -D && \
 	apk del build-base linux-headers && \
 	rm -rf /tmp/*   \
-        /var/cache/apk/* 
+        /var/cache/apk/* \
         /root/.cache
 
 EXPOSE 9000
