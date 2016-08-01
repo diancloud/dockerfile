@@ -190,7 +190,7 @@ Nginx 参数:
 	--with-http_ssl_module
 ```
 
-## Sentry ( 可选 )
+## Sentry ( 日志管理 )
 
 ```bash
 docker run -d \
@@ -203,7 +203,7 @@ docker run -d \
 
 目录说明
 ```
-/logs  日志文件目录
+/logs  日志目录
 /data  数据库目录
 /config 配置文件目录
 ```
