@@ -22,3 +22,5 @@
 
 FROM alpine:3.4
 MAINTAINER diancloud.com <dev@diancloud.com>
+ADD Shanghai /etc/localtime
+RUN echo "Asia/Shanghai" > /etc/timezone
