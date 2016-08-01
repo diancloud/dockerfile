@@ -82,7 +82,7 @@ RUN cd /tmp  && \
     apk add --no-cache --virtual=build-dependencies ca-certificates pcre-dev openssl-dev \
     	libxml2-dev wget perl make gcc g++ libcurl curl-dev gd gd-dev  libpng libpng-dev libwebp libwebp-dev libxpm libxpm-dev  \
     	readline-dev freetype freetype-dev automake autoconf libtool binutils  \
-    	libjpeg  libjpeg-turbo-dev libmcrypt libmcrypt-dev bash libintl bzip2 bzip2-dev  gettext  gettext-dev&& \
+    	libjpeg  libjpeg-turbo-dev libmcrypt libmcrypt-dev bash libintl bzip2 bzip2-dev  gettext  gettext-dev && \
     export DOWN="http://dockerfile.tuanduimao.com/openresty/1.9.7.5/download" && \
     # 
     # 下载编译安装 openresty
