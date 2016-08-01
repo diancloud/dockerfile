@@ -78,4 +78,4 @@ fi
 /opt/openresty/nginx/sbin/nginx -c /config/nginx/nginx.conf
 
 # 保持运行状态
-while :;do :;done
+/usr/bin/tail -f /dev/null

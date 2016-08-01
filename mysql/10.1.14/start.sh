@@ -60,4 +60,4 @@ fi
 /usr/bin/mysqld_safe --defaults-file=/config/my.cnf >> $LOG &
 
 # 保持运行状态
-while :;do :;done
+/usr/bin/tail -f /dev/null

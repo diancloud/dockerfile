@@ -6,3 +6,5 @@ if [ ! -d "/elasticsearch/config/ik" ]; then
 fi
 
 cd /elasticsearch/bin && ./elasticsearch >> "$LOG_PATH/elasticsearch.log"
+
+/usr/bin/tail -f /dev/null

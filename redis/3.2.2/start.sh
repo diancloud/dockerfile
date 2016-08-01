@@ -40,4 +40,4 @@ fi
 "/usr/local/bin/redis-$MASTER" "/config/$CNAME.conf" >> $LOG
 
 # 保持运行状态
-while :;do :;done
+/usr/bin/tail -f /dev/null

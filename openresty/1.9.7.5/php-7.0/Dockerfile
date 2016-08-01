@@ -55,10 +55,10 @@
 #     
 #     
 #  	  docker run --rm -it  \
-#  	  		 -v /home/vagrant/code/dockerfile/openresty/1.9.7.5/php-7.0/test/logs:/logs  \
-#  	  		 -v /home/vagrant/code/dockerfile/openresty/1.9.7.5/php-7.0/test/data:/data  \
-#  	  		 -v /home/vagrant/code/dockerfile/openresty/1.9.7.5/php-7.0/test/config:/config  \
-#  	  		 -v /home/vagrant/code/dockerfile/openresty/1.9.7.5/php-7.0/test/code:/code  \
+#  	  		 -v /home/vagrant/test/http/logs:/logs  \
+#  	  		 -v /home/vagrant/test/http/data:/data  \
+#  	  		 -v /home/vagrant/test/http/config:/config  \
+#  	  		 -v /home/vagrant/test/http/code:/code  \
 #  	  		 -p 85:80 \
 #  	  		 tuanduimao/openresty-php7  /bin/sh
 #  	  
