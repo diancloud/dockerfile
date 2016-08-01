@@ -51,7 +51,7 @@ if [ ! -d "/data/mysql" ]; then
 fi
 
 # 检查 MySQL 用户组
-ug=$(ls -l  /data/mysql | awk '{print $3:$4}')
+ug=$(ls -l  /data/mysql | awk '{print $3":"$4}')
 if [ "$ug" != "mysql:mysql" ]; then
 	chown -R mysql:mysql /data/mysql
 fi
