@@ -29,9 +29,9 @@
 #     
 #     
 #  	  docker run --rm -it  \
-#  	  		 -v /home/vagrant/code/dockerfile/redis/3.2.2/test/logs:/logs  \
-#  	  		 -v /home/vagrant/code/dockerfile/redis/3.2.2/test/data:/data  \
-#  	  		 -v /home/vagrant/code/dockerfile/redis/3.2.2/test/config:/config  \
+#  	  		 -v /home/vagrant/test/redis/logs:/logs  \
+#  	  		 -v /home/vagrant/test/redis/data:/data  \
+#  	  		 -v /home/vagrant/test/redis/config:/config  \
 #  	  		 -p 63790:6379 \
 #  	  		 tuanduimao/redis  /bin/sh
 #  	  

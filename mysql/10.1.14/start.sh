@@ -10,17 +10,17 @@ if [ ! -z "$RENEW" ]; then
 fi
 
 # 检查用户组
-ug=$(ls -l /config | awk '{print $3:$4}')
+ug=$(ls -l /config | awk '{print $3":"$4}')
 if [ "$ug" != "root:root" ]; then
 	chown -R root:root /config 
 fi
 
-ug=$(ls -l /logs | awk '{print $3:$4}')
+ug=$(ls -l /logs | awk '{print $3":"$4}')
 if [ "$ug" != "root:root" ]; then
 	chown -R root:root /logs 
 fi
 
-ug=$(ls -l /data | awk '{print $3:$4}')
+ug=$(ls -l /data | awk '{print $3":"$4}')
 if [ "$ug" != "root:root" ]; then
 	chown -R root:root /data 
 fi

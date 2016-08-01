@@ -31,9 +31,9 @@
 #     docker build -t tuanduimao/elasticsearch:latest .
 #     docker run --rm -it tuanduimao/elasticsearch  /bin/sh
 #  	  docker run --rm -it  \
-#  	  		 -v /home/vagrant/code/dockerfile/elasticsearch/1.7.3/test/logs:/logs  \
-#  	  		 -v /home/vagrant/code/dockerfile/elasticsearch/1.7.3/test/data:/data  \
-#  	  		 -v /home/vagrant/code/dockerfile/elasticsearch/1.7.3/test/config:/config  \
+#  	  		 -v /home/vagrant/test/es/logs:/logs  \
+#  	  		 -v /home/vagrant/test/es/data:/data  \
+#  	  		 -v /home/vagrant/test/es/config:/config  \
 #  	  		 -p 920:9200 \
 #  	  		 tuanduimao/elasticsearch  /bin/sh
 #  	  
@@ -171,15 +171,17 @@ RUN cd /tmp                                                              && \
 	cd /elasticsearch/bin  &&  ./plugin --install ik -u "${DOWN}/elasticsearch-analysis-ik-1.4.1-bin.zip"  \
  																	&& \
 #启动脚本
-	chmod +x /start.sh  && \
-	mkdir -p /config && \
-	rm -rf /elasticsearch/config  &&  ln -s /config  /elasticsearch/config  \
- 																	&& \
+	chmod +x /start.sh           \
+                                                                    && \
+# 添加索引管理用户
+    adduser es-data es-data -D -s/sbin/nologin            \
+                                                                    && \
 #清理安装产生的垃圾文件
     apk del build-dependencies    wget                                      && \
-    ln -s $JAVA_HOME/bin/* /usr/bin/                                     && \
-    rm -rf /tmp/*	&& \
-    rm -rf /var/cache/apk/* 										
+    ln -s $JAVA_HOME/bin/* /usr/bin/                        && \
+    rm -rf /tmp/*	\ 
+        /elasticsearch/config \
+        /var/cache/apk/* 										
 
 EXPOSE 9300 9200
 CMD ["sh", "/start.sh"]
