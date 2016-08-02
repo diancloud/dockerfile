@@ -3,6 +3,8 @@ CONF=$CONF
 RENEW=$RENEW
 LOG="/logs/shell.log"
 
+
+
 # 是否开启 RENEW
 if [ ! -z "$RENEW" ]; then
 	rm -rf /config/*
@@ -24,11 +26,10 @@ if [ "$ug" != "www-data:www-data" ]; then
 	chown -R www-data:www-data /data 
 fi
 
-ug=$(ls -l /code | awk '{print $3":"$4}')
-if [ "$ug" != "root:root" ]; then
-	chown -R root:root /code 
-fi
-
+# ug=$(ls -l /code | awk '{print $3":"$4}')
+# if [ "$ug" != ":$GROUP" ]; then
+# 	chown -R $USER:$GROUP /code 
+# fi
 
 # 更新配置文件
 if [ -z $CONF ]; then
@@ -66,10 +67,11 @@ if [ ! -d "/logs/nginx" ]; then
 fi
 
 # 如果未部署任何代码则
-if [ "$(ls /code | wc -l)" = "0" ]; then
-	echo "<?php " >> "/code/index.php"
-	echo "phpinfo();" >> "/code/index.php"
-fi
+# if [ "$(ls /code | wc -l)" = "0" ]; then
+# 	echo "<?php " >> "/code/index.php"
+# 	echo "phpinfo();" >> "/code/index.php"
+# 	chown $USER:$GROUP "/code/index.php"
+# fi
 
 # 启动 PHP-FPM
 /opt/php7/sbin/php-fpm -c /config/php/php.ini  -y /config/php/fpm/php-fpm.conf

@@ -118,7 +118,7 @@ docker run -d \
     -v /host/logs:/logs  \
     -v /host/data:/data  \
     -v /host/config:/config  \
-    -v /host/code:/code  \
+    -v /host/code:/code:ro  \
     -p 8080:80 \
     tuanduimao/openresty-php7
 ```
@@ -128,7 +128,7 @@ docker run -d \
 ```
 /logs  日志文件目录
 /data  程序产生数据存放目录
-/code  PHP程序目录 (只读)
+/code  PHP程序目录 ( 建议只读挂载 )
 /config 配置文件目录
 ```
 
