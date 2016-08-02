@@ -175,7 +175,7 @@ RUN cd /tmp  && \
 	# 
 	# 添加WEB用户
 	# 
-	adduser www-data www-data -D -s/sbin/nologin && \
+	adduser www-data www-data -D && \
 	# 
 	# 清理无用文件
 	#
