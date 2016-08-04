@@ -49,6 +49,11 @@ if [ ! -d "/config/php" ]; then
 	cp -R "/defaults/config/$CONF/php" /config/
 fi
 
+# copy php.ini 
+if [ -f "/config/php/php.ini" ]; then
+	cp -f /config/php/php.ini  /opt/php7/etc/php.ini
+fi
+
 # 创建默认目录
 if [ ! -d "/run/nginx" ]; then
 	mkdir /run/nginx

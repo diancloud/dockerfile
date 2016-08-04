@@ -169,9 +169,21 @@ RUN cd /tmp  && \
     cd phpredis-3.0.0  && \
     /opt/php7/bin/phpize && \
     CFLAGS="-O3 -fPIC"  ./configure && \
-    make && make install && \
+    CFLAGS="-O3 -fPIC" make && make install && \
     echo ";redis-ext" >>  /opt/php7/etc/php.ini && \
 	echo "extension=redis.so" >>  /opt/php7/etc/php.ini && \
+	#
+	# 下载编译安装XDebug 扩展
+	#
+	cd /tmp && \
+    wget -q "$DOWN/xdebug-2.4.1.tgz"  && \
+    tar xfz xdebug-2.4.1.tgz && \
+    cd xdebug-2.4.1  && \
+    /opt/php7/bin/phpize && \
+    CFLAGS="-O3 -fPIC"  ./configure --enable-xdebug && \
+    CFLAGS="-O3 -fPIC"  make && make install && \
+    echo ";xdebug-ext" >>  /opt/php7/etc/php.ini && \
+	echo "extension=xdebug.so" >>  /opt/php7/etc/php.ini && \
 	# 
 	# 添加WEB用户
 	# 
