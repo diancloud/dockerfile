@@ -54,6 +54,11 @@ if [ -f "/config/php/php.ini" ]; then
 	cp -f /config/php/php.ini  /opt/php7/etc/php.ini
 fi
 
+# xdebug logs
+if [ ! -d "/logs/xdebug" ]; then
+	mkdir /logs/xdebug
+fi
+
 # 创建默认目录
 if [ ! -d "/run/nginx" ]; then
 	mkdir /run/nginx
