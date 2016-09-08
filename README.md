@@ -190,6 +190,77 @@ Nginx 参数:
 	--with-http_ssl_module
 ```
 
+
+## WebServer  ( 团队猫:开发环境 OpenResty + PHP7  )
+
+```FROM tuanduimao/openresty-php7:latest```
+
+```bash
+docker run -d \
+    --add-host redis-host:172.17.0.1 \
+    --add-host admin.tuanduimao.lc:172.17.0.1 \
+    --add-host apps.tuanduimao.lc:172.17.0.1 \
+    --add-host cdn.tuanduimao.lc:172.17.0.1 \
+    --add-host ui.tuanduimao.lc:172.17.0.1 \
+	-v /host/logs:/logs  \
+    -v /host/data:/data  \
+    -v /host/config:/config  \
+    -v /host/code:/code:ro  \
+    -p 80:80 \
+    tuanduimao/server-dev
+```
+
+
+目录说明
+```
+/logs  日志文件目录
+
+/data  程序产生数据存放目录
+	/data/composer  composer 文件夹
+	/data/stor/public 存储文件夹 （公开)
+	/data/stor/private 存储文件夹 （私密)
+
+/code   PHP程序目录 ( 建议只读挂载, 启动前先检出代码 )
+	/code/tuanduimao   团队猫程序目录
+	/code/tuanapps/*   团队猫应用目录
+	/code/tuanui	   团队猫UI组件目录
+
+/config 配置文件目录
+	/config/service  团队猫程序配置文件目录 ( default.inc.php & config.json )
+
+```
+
+环境变量
+```
+MAIN_HOST=tuanduimao.lc  主域名  admin.:后台, ui.:UI组件, apps.:应用, cdn.:图片
+TUANDUIMAO_VERSION=1.0.50  当前版本
+
+REDIS_HOST=redis-host  redis服务器地址
+	REDIS_PORT=6379    redis服务器端口
+	REDIS_SOCKET=      redis socket
+	REDIS_USER=   	   redis user
+	REDIS_PASS=   	   redis password
+
+```
+
+
+访问地址
+```
+  http://admin.tuanduimao.lc/
+```
+
+
+管理工具 `tdm`
+```
+docker exec your_doker_name tdm
+tdm conf -  根据环境信息创建 default.inc.php 配置文件 
+tdm composer - 运行 composer 
+```
+
+
+
+
+
 ## Sentry ( 日志管理 )
 
 ```bash

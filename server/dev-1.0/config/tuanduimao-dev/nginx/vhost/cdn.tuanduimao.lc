@@ -1,0 +1,9 @@
+server {
+    listen 80;
+    server_name  cdn.tuanduimao.lc;
+    root /data/stor/public;
+    access_log  /logs/nginx/access.cdn.log;
+    error_log   /logs/nginx/error.cdn.log;
+    client_max_body_size 256m;
+    index index.html;
+}

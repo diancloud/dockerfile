@@ -1,0 +1,75 @@
+#!/bin/sh
+CONF=$CONF
+RENEW=$RENEW
+LOG="/logs/tdm.log"
+
+
+# 安装团队猫依赖库
+composer_init() {
+
+	if [ ! -f "/code/tuanduimao/service/composer.json" ]; then
+		echo "COMPOSER CONFIG FILE DOES NOT FOUND" >> $LOG
+		exit
+	fi
+
+	if [ ! -f "/data/composer/composer.json" ]; then
+		su www-data -c  "cp -f /code/tuanduimao/service/composer.json /data/composer/composer.json"
+	fi
+
+	if [ -f "/data/composer/composer.lock" ]; then
+		echo "COMPOSER UPDATE" >> $LOG
+		su www-data -c "/bin/composer config -g repo.packagist composer https://packagist.phpcomposer.com && cd /data/composer && /bin/composer update" >> /logs/tdm.log
+		echo "COMPOSER UPDATE COMPLETE" >> $LOG
+	else
+		echo "COMPOSER INSTALL" >> $LOG
+		su www-data -c "/bin/composer config -g repo.packagist composer https://packagist.phpcomposer.com && cd /data/composer && /bin/composer install" >> /logs/tdm.log
+		echo "COMPOSER INSTALL COMPLETE" >> $LOG
+	fi
+}
+
+# 自动生成配置文件
+configure() {
+
+	echo "CREATE defaults.inc.php " >> $LOG
+
+	echo "<?php" >> "/config/service/defaults.inc.php"
+	echo "require_once('/data/composer/vendor/autoload.php');" >> "/config/service/defaults.inc.php"
+
+	echo "define('_TDM_APPROOT', '/code/tuanapps');" >> "/config/service/defaults.inc.php"
+
+	echo "define('_TDM_REVERSION', '$TUANDUIMAO_VERSION');" >> "/config/service/defaults.inc.php"
+	echo "define('_TDM_DOMAIN', '$MAIN_HOST');" >> "/config/service/defaults.inc.php"
+
+	echo "define('_TDM_REDIS_HOST', '$REDIS_HOST');" >> "/config/service/defaults.inc.php"
+	echo "define('_TDM_REDIS_PORT', '$REDIS_PORT' );" >> "/config/service/defaults.inc.php"
+	echo "define('_TDM_REDIS_SOCKET', NULL );" >> "/config/service/defaults.inc.php"
+	echo "define('_TDM_REDIS_PASSWD', NULL );" >> "/config/service/defaults.inc.php"
+
+	echo "define('_TDM_CONFIG_FILE', '/config/service/config.json' );" >> "/config/service/defaults.inc.php"
+	echo "error_reporting( E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_NOTICE &  ~E_WARNING );" >> "/config/service/defaults.inc.php"
+	echo "ini_set( 'display_errors' , true );" >> "/config/service/defaults.inc.php"
+
+	chown -R www-data:www-data /config/service
+
+	echo "CREATE defaults.inc.php COMPLETE" >> $LOG
+
+}
+
+
+if [ "$1" == "composer" ]; then
+	composer_init
+	exit
+fi
+
+if [ "$1" == "conf" ]; then
+	configure
+	exit
+fi
+
+
+
+echo "USEAGE: tdm [conf|repair|update|composer|run] "
+echo "tdm conf -  create new config.json"
+# echo "tdm repair -  repair tables and index"
+# cho "tdm update -  update tuanduimao core code"
+echo "tdm composer - run composer"
