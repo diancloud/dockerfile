@@ -1,6 +1,6 @@
 server {
     listen 80;
-    server_name tuanduimao.rc;
+    server_name tuanduimao.lc;
     root /code;
     access_log  /logs/nginx/access.log;
     error_log  /logs/nginx/error.log;
