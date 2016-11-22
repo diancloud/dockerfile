@@ -64,25 +64,35 @@
 #  	  
 # ===========================================
 
-FROM tuanduimao/alpine:latest
+#FROM tuanduimao/alpine:latest
+FROM ubuntu:16.04
 MAINTAINER diancloud.com <dev@diancloud.com>
 
 VOLUME ["/run","/data", "/code", "/logs", "/config"]
 ENV PATH=${PATH}:/opt/php7/bin:/opt/php7/sbin:/opt/openresty/bin:/opt/openresty/nginx/sbin \
 	CONF=default 
 
+ADD sources.list /etc/apt/sources.list
 ADD config /defaults/config
 ADD start.sh /start.sh
 
 RUN cd /tmp  && \
-	apk update && \
+	apt-get update  && \
+	apt-get install -y libreadline-dev libncurses5-dev libpcre3-dev \
+	ca-certificates  \
+	libxml2-dev wget perl make gcc g++  libxpm-dev \
+	automake autoconf libtool binutils \
+    libcurl4-openssl-dev libgnutls-dev libssl-dev perl make build-essential  \
+    libmcrypt-dev bash  bzip2  libpng-dev libbz2-dev libfreetype6-dev libwebp-dev libjpeg-dev gettext  && \
+
+	#apk update && \
 	# 
 	# 编译环境 下载工具
 	# 
-    apk add --no-cache --virtual=build-dependencies ca-certificates pcre-dev openssl-dev \
-    	libxml2-dev wget perl make gcc g++ libcurl curl-dev gd gd-dev  libpng libpng-dev libwebp libwebp-dev libxpm libxpm-dev  \
-    	readline-dev freetype freetype-dev automake autoconf libtool binutils  \
-    	libjpeg  libjpeg-turbo-dev libmcrypt libmcrypt-dev bash libintl bzip2 bzip2-dev  gettext  gettext-dev && \
+    #apk add --no-cache --virtual=build-dependencies ca-certificates pcre-dev openssl-dev \
+    #	libxml2-dev wget perl make gcc g++ libcurl curl-dev gd gd-dev  libpng libpng-dev libwebp libwebp-dev libxpm libxpm-dev  \
+    #	readline-dev freetype freetype-dev automake autoconf libtool binutils  \
+    #	libjpeg  libjpeg-turbo-dev libmcrypt libmcrypt-dev bash libintl bzip2 bzip2-dev  gettext  gettext-dev && \
     export DOWN="http://dockerfile.tuanduimao.com/openresty/1.9.7.5/download" && \
     # 
     # 下载编译安装 openresty
@@ -195,22 +205,23 @@ RUN cd /tmp  && \
 	# 
 	# 添加WEB用户
 	# 
-	adduser www-data www-data -D && \
+	#adduser www-data www-data -D && \
+	adduser www-data www-data && \
 	# 
 	# 清理无用文件
 	#
 	echo "Clean"  && \
-	apk del python && \
+	# apk del python && \
 	rm -rf /tmp/*  \
 		   #/usr/libexec/* \
 		   #/usr/lib/gcc   \
-		   /usr/lib/perl5   \
-   		   /usr/lib/python2.7  \
-   		   /usr/include/* \
-   		   /usr/share/* \
-   		   /opt/php7/bin/phpdbg \
-   		   /opt/php7/bin/php-cgi && \
-
+		   #/usr/lib/perl5   \
+   		   #/usr/lib/python2.7  \
+   		   #/usr/include/* \
+   		   #/usr/share/* \
+   		   #/opt/php7/bin/phpdbg \
+   		   #/opt/php7/bin/php-cgi && \
+   		   
 	echo "Complete"
 
 ADD extension/ioncube_loader_lin_7.0.so /opt/php7/lib/php/extensions/no-debug-non-zts-20151012/ioncube_loader_lin_7.0.so
