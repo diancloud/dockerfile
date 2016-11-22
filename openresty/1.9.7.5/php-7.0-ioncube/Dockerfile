@@ -17,13 +17,13 @@
 #		 -v /host/config:/config  \
 #		 -v /host/code:/code  \
 #		 -p 85:80 \
-#		 tuanduimao/openresty-php7
+#		 tuanduimao/openresty-php7-ioncube
 #  	 
 #  FROM:
-#  	 FROM tuanduimao/openresty-php7:1.9.7.5
+#  	 FROM tuanduimao/openresty-php7-ioncube:1.9.7.5
 #  	 
 #  BUILD:
-#     docker build -t tuanduimao/openresty-php7:1.9.7.5  -t tuanduimao/openresty-php7:latest .
+#     docker build -t tuanduimao/openresty-php7-ioncube:1.9.7.5  -t tuanduimao/openresty-php7-ioncube:latest .
 #     
 #     
 #  PHP 编译参数: 
@@ -50,8 +50,8 @@
 #  Zend OPcache
 #  
 #  TEST:
-#     docker build -t tuanduimao/openresty-php7:latest .
-#     docker run --rm -it tuanduimao/openresty-php7  /bin/sh
+#     docker build -t tuanduimao/openresty-php7-ioncube:latest .
+#     docker run --rm -it tuanduimao/openresty-php7-ioncube  /bin/sh
 #     
 #     
 #  	  docker run --rm -it  \
@@ -158,6 +158,14 @@ RUN cd /tmp  && \
 	--disable-rpath && \
 	make && make install && \
 	cp /tmp/php-7.0.9/php.ini-production  /opt/php7/etc/php.ini && \
+	#
+	# Load zend_extension=ioncube_loader_lin_7.0.so
+	#
+	echo ";ioncube_loader" >>  /opt/php7/etc/php.ini && \
+	echo "zend_extension=ioncube_loader_lin_7.0.so" >>  /opt/php7/etc/php.ini && \
+	#
+	# 
+	#
 	echo ";opcache-ext" >>  /opt/php7/etc/php.ini && \
 	echo "zend_extension=opcache.so" >>  /opt/php7/etc/php.ini && \
 	#
@@ -194,8 +202,8 @@ RUN cd /tmp  && \
 	echo "Clean"  && \
 	apk del python && \
 	rm -rf /tmp/*  \
-		   /usr/libexec/* \
-		   /usr/lib/gcc   \
+		   #/usr/libexec/* \
+		   #/usr/lib/gcc   \
 		   /usr/lib/perl5   \
    		   /usr/lib/python2.7  \
    		   /usr/include/* \
@@ -204,6 +212,7 @@ RUN cd /tmp  && \
    		   /opt/php7/bin/php-cgi && \
 
 	echo "Complete"
-	
+
+ADD extension/ioncube_loader_lin_7.0.so /opt/php7/lib/php/extensions/no-debug-non-zts-20151012/ioncube_loader_lin_7.0.so
 EXPOSE 80
 CMD ["sh", "/start.sh"]
