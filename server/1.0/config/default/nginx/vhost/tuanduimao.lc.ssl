@@ -14,8 +14,8 @@ server {
     access_log  /logs/nginx/access.log;
     error_log  /logs/nginx/error.log;
 
-    location ^~ /static-file/ {  
-       root /data/stor/public;
+    location /static-file/ {  
+       alias /data/stor/public/;
        access_log  /logs/nginx/access.static.log;
        error_log  /logs/nginx/error.static.log;
     }

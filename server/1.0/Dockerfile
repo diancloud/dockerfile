@@ -81,7 +81,7 @@ ENV PATH=${PATH}:/opt/php7/bin:/opt/php7/sbin:/opt/openresty/bin:/opt/openresty/
 	REDIS_PASS=
 
 ADD config /defaults/config
-ADD config /code
+# ADD config /code
 ADD start.sh /start.sh
 ADD tdm /bin/tdm
 ADD composer.phar /bin/composer
