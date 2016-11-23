@@ -17,13 +17,13 @@
 #		 -v /host/config:/config  \
 #		 -v /host/code:/code  \
 #		 -p 85:80 \
-#		 tuanduimao/openresty-php7-ioncube
+#		 tuanduimao/server
 #  	 
 #  FROM:
-#  	 FROM tuanduimao/openresty-php7-ioncube:1.9.7.5
+#  	 FROM tuanduimao/server:1.0
 #  	 
 #  BUILD:
-#     docker build -t tuanduimao/openresty-php7-ioncube:1.9.7.5  -t tuanduimao/openresty-php7-ioncube:latest .
+#     docker build -t tuanduimao/server:1.0  -t tuanduimao/server:latest .
 #     
 #     
 #  PHP 编译参数: 
@@ -50,7 +50,7 @@
 #  Zend OPcache
 #  
 #  TEST:
-#     docker build -t tuanduimao/tuanduimao:latest .
+#     docker build -t tuanduimao/server:latest .
 #     docker run --rm -it tuanduimao/tuanduimao  /bin/bash
 #     
 #     
