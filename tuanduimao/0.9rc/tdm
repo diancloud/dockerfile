@@ -56,12 +56,12 @@ configure() {
 }
 
 
-if [ "$1" == "composer" ]; then
+if [ "$1" = "composer" ]; then
 	composer_init
 	exit
 fi
 
-if [ "$1" == "conf" ]; then
+if [ "$1" = "conf" ]; then
 	configure
 	exit
 fi

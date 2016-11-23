@@ -2,6 +2,7 @@
 CONF=$CONF
 RENEW=$RENEW
 MAIN_HOST=$HOST
+HTTPS=$HTTPS
 LOG="/logs/startup.log"
 
 
@@ -53,6 +54,9 @@ if [ ! -d "/config/lua" ]; then
 	cp -R "/defaults/config/$CONF/lua" /config/
 fi
 
+if [ ! -d "/config/crt" ]; then
+	cp -R "/defaults/config/$CONF/crt" /config/
+fi
 
 # copy php.ini 
 if [ -f "/config/php/php.ini" ]; then
@@ -77,15 +81,70 @@ if [ ! -d "/config/service" ]; then
 	chown -R www-data:www-data /config/service
 fi
 
+# 默认 VHOST
+rm -f /config/nginx/vhost/enable/*
+ln -s "/config/nginx/vhost/tuanduimao.lc" "/config/nginx/vhost/enable/tuanduimao.lc" 
+ln -s "/config/nginx/vhost/tuanduimao.lc.ssl" "/config/nginx/vhost/enable/tuanduimao.lc.ssl" 
+ln -s "/config/nginx/vhost/apps.tuanduimao.cn" "/config/nginx/vhost/enable/apps.tuanduimao.cn" 
 
-# fix vhost 
+# 设定SSH  
 if [ "$MAIN_HOST" != "tuanduimao.lc" ]; then
 
 	if [ -f "/config/nginx/vhost/tuanduimao.lc" ]; then
 		cp /config/nginx/vhost/tuanduimao.lc "/config/nginx/vhost/$MAIN_HOST"
 		sed -i "s/tuanduimao.lc/$MAIN_HOST/g" "/config/nginx/vhost/$MAIN_HOST"
 	fi
+
+	if [ -f "/config/nginx/vhost/tuanduimao.lc.ssl" ]; then
+		cp /config/nginx/vhost/tuanduimao.lc.ssl "/config/nginx/vhost/$MAIN_HOST.ssl"
+		sed -i "s/tuanduimao.lc/$MAIN_HOST/g" "/config/nginx/vhost/$MAIN_HOST.ssl"
+	fi
+
+	if [ -f "/config/nginx/vhost/tuanduimao.lc.fwd" ]; then
+		cp /config/nginx/vhost/tuanduimao.lc.fwd "/config/nginx/vhost/$MAIN_HOST.fwd"
+		sed -i "s/tuanduimao.lc/$MAIN_HOST/g" "/config/nginx/vhost/$MAIN_HOST.fwd"
+	fi
+
+	if [ "$HTTPS" = "ON" ]; then
+
+		if [ ! -f "/config/crt/$MAIN_HOST.key" ]; then 
+			echo "/config/crt/$MAIN_HOST.key not exist. " >> $LOG
+			exit;
+		fi
+
+		if [ ! -f "/config/crt/$MAIN_HOST.crt" ]; then 
+			echo "/config/crt/$MAIN_HOST.key not exist. " >> $LOG
+			exit;
+		fi
+
+		rm -f "/config/nginx/vhost/enable/$MAIN_HOST*"
+		ln -s "/config/nginx/vhost/$MAIN_HOST" "/config/nginx/vhost/enable/$MAIN_HOST"
+		ln -s "/config/nginx/vhost/$MAIN_HOST.ssl" "/config/nginx/vhost/enable/$MAIN_HOST.ssl"
+
+	elif [ "$HTTPS" = "FORCE" ]; then
+		if [ ! -f "/config/crt/$MAIN_HOST.key" ]; then 
+			echo "/config/crt/$MAIN_HOST.key not exist. " >> $LOG
+			exit;
+		fi
+
+		if [ ! -f "/config/crt/$MAIN_HOST.crt" ]; then 
+			echo "/config/crt/$MAIN_HOST.key not exist. " >> $LOG
+			exit;
+		fi
+
+		rm -f "/config/nginx/vhost/enable/$MAIN_HOST*"
+		ln -s "/config/nginx/vhost/$MAIN_HOST.fwd" "/config/nginx/vhost/enable/$MAIN_HOST.fwd"
+		ln -s "/config/nginx/vhost/$MAIN_HOST.ssl" "/config/nginx/vhost/enable/$MAIN_HOST.ssl"
+
+	else
+		ln -s "/config/nginx/vhost/$MAIN_HOST" "/config/nginx/vhost/enable/$MAIN_HOST"
+	fi
+
+	rm -f "/config/nginx/vhost/enable/tuanduimao.lc"
+	rm -f "/config/nginx/vhost/enable/tuanduimao.lc.ssl"
+	rm -f "/config/nginx/vhost/enable/tuanduimao.lc.fwd"
 fi
+
 
 
 # xdebug logs
