@@ -205,22 +205,22 @@ RUN cd /tmp  && \
 	# 
 	# 添加WEB用户
 	# 
-	#adduser www-data www-data -D && \
 	adduser www-data www-data && \
 	# 
 	# 清理无用文件
 	#
 	echo "Clean"  && \
-	# apk del python && \
+	apt-get remove -y build-essential gcc make  && \
 	rm -rf /tmp/*  \
-		   #/usr/libexec/* \
-		   #/usr/lib/gcc   \
-		   #/usr/lib/perl5   \
-   		   #/usr/lib/python2.7  \
-   		   #/usr/include/* \
-   		   #/usr/share/* \
-   		   #/opt/php7/bin/phpdbg \
-   		   #/opt/php7/bin/php-cgi && \
+		/usr/libexec/* \
+		/usr/lib/gcc   \
+		/usr/lib/perl5   \
+   		/usr/lib/python2.7  \
+   		/usr/include/* \
+   		/usr/share/* \
+   		/var/lib/* \
+   		/opt/php7/bin/phpdbg \
+   		/opt/php7/bin/php-cgi && \
    		   
 	echo "Complete"
 

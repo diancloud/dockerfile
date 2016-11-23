@@ -92,19 +92,19 @@ RUN chmod +x /start.sh  && \
 	# 
 	# 清理无用文件
 	#
-	echo "Clean"  && \
-	apt-get remove -y build-essential gcc make  && \
-	rm -rf /tmp/*  \
-		/usr/libexec/* \
-		/usr/lib/gcc   \
-		/usr/lib/perl5   \
-   		/usr/lib/python2.7  \
-   		/usr/include/* \
-   		/usr/share/* \
-   		/var/lib/* \
-   		/opt/php7/bin/phpdbg \
-   		/opt/php7/bin/php-cgi && \
-   		   
+	# echo "Clean"  && \
+	# apt-get remove -y build-essential gcc make  && \
+	# rm -rf /tmp/*  \
+	# 	/usr/libexec/* \
+	# 	/usr/lib/gcc   \
+	# 	/usr/lib/perl5   \
+   	# 	/usr/lib/python2.7  \
+   	# 	/usr/include/* \
+   	# 	/usr/share/* \
+   	# 	/var/lib/* \
+   	# 	/opt/php7/bin/phpdbg \
+   	# 	/opt/php7/bin/php-cgi && \
+   	# 	   
 	echo "Complete"
 
 EXPOSE 80 443
