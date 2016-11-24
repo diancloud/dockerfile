@@ -1,6 +1,106 @@
 团队猫 Dockerfile
 ==============================
 
+![团队猫主图](http://7xleg1.com1.z0.glb.clouddn.com/tdm.png)
+
+快速构建客户管理、内容管理、资料管理、流程审批等功能的企业应用。支持独立部署、二次开发，可快速接入企业微信等协作平台。团队猫提供了一个应用引擎和 MVC 程序框架，可大幅度提升程序开发、发布效率。官方网站 http://tuanduimao.com
+
+
+## 团队猫
+
+```bash
+
+# 默认启动 
+# Host: tuanduimao.rc xxx.xxx.xxx.xxx 
+# 访问: http://tuanduimao.rc
+docker run -d --name=tuanduimao  tuanduimao/tuanduimao:0.9rc 
+
+
+# 挂载目录
+# Host: tuanduimao.rc xxx.xxx.xxx.xxx 
+# 访问: http://tuanduimao.rc
+docker run -d --name=tuanduimao \
+    -p 85:80 -p 443:443 \
+    -v /host/logs:/logs  \
+	 -v /host/data:/data  \
+	 -v /host/config:/config  \
+	 -v /host/apps:/apps \
+    tuanduimao/tuanduimao:0.9rc 
+    
+    
+# 绑定域名
+# Host/解析: yourdomain.com xxx.xxx.xxx.xxx 
+# 访问: http://yourdomain.com
+docker run -d  --name=tuanduimao  \
+    -e "HOST=yourdomain.com" \
+    -p 85:80 -p 443:443 \
+    -v /host/logs:/logs  \
+	 -v /host/data:/data  \
+	 -v /host/config:/config  \
+	 -v /host/apps:/apps \
+    tuanduimao/tuanduimao:0.9rc 
+    
+
+# 启用 HTTPS 
+# Host/解析: yourdomain.com xxx.xxx.xxx.xxx 
+# 访问: https://yourdomain.com
+docker run -d   --name=tuanduimao \
+    -e "HOST=yourdomain.com" \
+    -e "HTTPS=FORCE"  \
+    -p 85:80 -p 443:443 \
+    -v /host/logs:/logs  \
+	 -v /host/data:/data  \
+	 -v /host/config:/config  \
+	 -v /host/apps:/apps \
+    tuanduimao/tuanduimao:0.9rc 
+    
+```
+
+目录说明
+
+```
+/logs  日志目录
+
+/data  程序产生数据存放目录
+	/data/composer  composer 文件夹
+	/data/stor/public 存储文件夹 （公开)
+	/data/stor/private 存储文件夹 （私密)
+
+/code   团队猫主程序
+/apps   团队猫应用程序目录
+
+/config 配置文件目录
+    /config/nginx   Nginx 配置目录
+    /config/lua     Lua 脚本目录
+    /config/php     php 配置目录
+    /config/crt     SSL 证书目录
+```
+
+HTTPS 
+
+```bash
+1. 所有证书放置在 `/config/crt` 目录
+2. 证书文件命名规则 `yourdomain.crt` &  `yourdomain.key`
+3. 创建容器时，需要将 HTTPS 环境变量设定为 ON 或者 FORCE
+4. 更新证书后，需要重启容器
+```
+
+
+环境变量
+
+```
+HOST=tuanduimao.lc 系统域名
+_TDM_CONFIG_ROOT=/data  团队猫配置文件目录
+TUANDUIMAO_VERSION=0.9rc  发行版版本号
+HTTPS=FORCE  是否启用 HTTPS ON: 启用  FORCE: 所有 http 请求转向到 https
+REDIS_HOST=redis-host  redis服务器地址
+	REDIS_PORT=6379    redis服务器端口
+	REDIS_SOCKET=      redis socket
+	REDIS_USER=   	   redis user
+	REDIS_PASS=   	   redis password
+
+```
+
 
 ## MySQL
 ```bash
@@ -14,6 +114,7 @@ docker run -d \
 
 
 目录说明
+
 ```
 /logs   日志目录
 /data   数据目录
@@ -21,6 +122,7 @@ docker run -d \
 ```
 
 环境信息
+
 ```
 MySQL: Mariadb 10.1.14 ( http://www.mariadb.org/)
 User: mysql
@@ -28,6 +130,7 @@ Group: mysql
 ```
 
 管理工具 `my`
+
 ```
 docker exec your_doker_name my
 
@@ -52,9 +155,10 @@ docker run -d \
 	 -v /host/config:/config  \
 	 -p 92:9200 -p 93:9300 \
 	 tuanduimao/elasticsearch
-````
+```
 
 目录说明
+
 ```
 /logs  日志文件目录
 /data  索引数据存放位置 （ 可在 elasticsearch.yml 中定义 ）
@@ -63,21 +167,25 @@ docker run -d \
 
 
 HQ 管理器
+
 ```
   http://yourhost:92/_plugin/hq/
 ```
 
 SQL 查询插件
+
 ```
   http://yourhost:92/_plugin/sql/
 ```
 
 中文分词配置
+
 ```
 /config/ik/*
 ```
 
 环境信息
+
 ```
 jdk: java8-8u25
 elasticsearch: 1.7.3
@@ -86,9 +194,8 @@ elasticsearch-hq: 0.99.1
 elasticsearch-sql: 1.4.6 ( #m )
 ```
 
-
-
 ## Redis
+
 ```bash
 docker run -d \
 	-v /host/logs:/logs  \
@@ -99,6 +206,7 @@ docker run -d \
 ```
 
 目录说明
+
 ```
 /logs  日志文件目录
 /data  数据存放目录
@@ -106,6 +214,7 @@ docker run -d \
 ```
 
 环境信息
+
 ```
 版本: 3.2.2
 ```
@@ -125,6 +234,7 @@ docker run -d \
 
 
 目录说明
+
 ```
 /logs  日志文件目录
 /data  程序产生数据存放目录
@@ -133,11 +243,13 @@ docker run -d \
 ```
 
 访问地址
+
 ```
   http://yourhost:8080/
 ```
 
 环境信息
+
 ```
 Nginx: 1.9.7
 PHP: 7.0.9
@@ -146,6 +258,7 @@ Group: www-data
 ```
 
 PHP 参数:  `CFLAGS="-O3 -fPIC"`
+
 ```bash
 ./configure --prefix=/opt/php7 --with-config-file-path=/opt/php7/etc --enable-fpm 
 	--with-fpm-user=www --with-fpm-group=www --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd 
@@ -160,6 +273,7 @@ PHP 参数:  `CFLAGS="-O3 -fPIC"`
 ```
 
 [PHP Modules]
+
 ```bash
 bcmath、 bz2、 calendar、 Core、 ctype、 curl、 date、 dba、 dom、 exif、 fileinfo、 filter、 ftp、 gd、
 gettext、 hash、 iconv、 json、 libxml、 mbstring、 mcrypt、 mysqli、 mysqlnd、 openssl、 pcntl、 pcre、 
@@ -169,12 +283,14 @@ xmlreader、 xmlrpc、 xmlwriter、 Zend OPcache、 zip、 zlib
 ```
 
 [Zend Modules]
+
 ```bash
 Zend OPcache
 ```
 
 
 Nginx 参数:
+
 ```
 ./configure  --prefix=/opt/openresty/nginx --with-cc-opt=-O2 --add-module=../ngx_devel_kit-0.2.19 
 	--add-module=../echo-nginx-module-0.58 --add-module=../xss-nginx-module-0.05 
@@ -191,9 +307,7 @@ Nginx 参数:
 ```
 
 
-## WebServer  ( 团队猫:开发环境 OpenResty + PHP7  )
-
-```FROM tuanduimao/openresty-php7:latest```
+## Server-dev  ( 团队猫开发环境  )
 
 ```bash
 docker run -d \
@@ -212,6 +326,7 @@ docker run -d \
 
 
 目录说明
+
 ```
 /logs  日志文件目录
 
@@ -231,6 +346,7 @@ docker run -d \
 ```
 
 环境变量
+
 ```
 MAIN_HOST=tuanduimao.lc  主域名  admin.:后台, ui.:UI组件, apps.:应用, cdn.:图片
 TUANDUIMAO_VERSION=1.0.50  当前版本
@@ -245,18 +361,84 @@ REDIS_HOST=redis-host  redis服务器地址
 
 
 访问地址
+
 ```
   http://admin.tuanduimao.lc/
 ```
 
 
 管理工具 `tdm`
+
 ```
 docker exec your_doker_name tdm
 tdm conf -  根据环境信息创建 default.inc.php 配置文件 
 tdm composer - 运行 composer 
 ```
 
+
+## Server ( 团队猫服务器 )
+
+```bash
+docker run -d  \
+    -e "HOST=yourdomain.com" \
+    -e "HTTPS=FORCE"  \
+    -p 85:80 -p 443:443 \
+    -v /host/logs:/logs  \
+	 -v /host/data:/data  \
+	 -v /host/config:/config  \
+	 -v /host/apps:/apps \
+    tuanduimao/server-dev
+```
+
+目录说明
+
+```
+/logs  日志目录
+
+/data  程序产生数据存放目录
+	/data/composer  composer 文件夹
+	/data/stor/public 存储文件夹 （公开)
+	/data/stor/private 存储文件夹 （私密)
+
+/code   团队猫主程序
+/apps   团队猫应用程序目录
+
+/config 配置文件目录
+    /config/nginx   Nginx 配置目录
+    /config/lua     Lua 脚本目录
+    /config/php     php 配置目录
+    /config/crt     SSL 证书目录
+```
+
+HTTPS 
+
+```bash
+1. 所有证书放置在 `/config/crt` 目录
+2. 证书文件命名规则 `yourdomain.crt` &  `yourdomain.key`
+3. 创建容器时，需要将 HTTPS 环境变量设定为 ON 或者 FORCE
+4. 更新证书后，需要重启容器
+```
+
+
+环境变量
+
+```
+HOST=tuanduimao.lc 系统域名
+_TDM_CONFIG_ROOT=/data  团队猫配置文件目录
+HTTPS=FORCE  是否启用 HTTPS ON: 启用  FORCE: 所有 http 请求转向到 https
+REDIS_HOST=redis-host  redis服务器地址
+	REDIS_PORT=6379    redis服务器端口
+	REDIS_SOCKET=      redis socket
+	REDIS_USER=   	   redis user
+	REDIS_PASS=   	   redis password
+
+```
+
+访问地址
+
+```bash
+https://yourdomain.com/
+```
 
 
 
@@ -273,6 +455,7 @@ docker run -d \
 ```
 
 目录说明
+
 ```
 /logs  日志目录
 /data  数据库目录
@@ -281,6 +464,7 @@ docker run -d \
 
 
 环境信息
+
 ```
 Sentry: 8.6.0
 
@@ -289,9 +473,12 @@ Sentry: 8.6.0
 ```
 
 访问地址
+
 ```bash
 http://yourhost:9000/
 ```
 
 
 ## Other
+
+
