@@ -1,7 +1,7 @@
 团队猫 Dockerfile
 ==============================
 
-![团队猫主图](http://7xleg1.com1.z0.glb.clouddn.com/git/tdm.png)
+![团队猫主图](http://7xleg1.com1.z0.glb.clouddn.com/tdm.png)
 
 快速构建客户管理、内容管理、资料管理、流程审批等功能的企业应用。支持独立部署、二次开发，可快速接入企业微信等协作平台。团队猫提供了一个应用引擎和 MVC 程序框架，可大幅度提升程序开发、发布效率。官方网站 http://tuanduimao.com
 
