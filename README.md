@@ -13,14 +13,14 @@
 # 默认启动 
 # Host: tuanduimao.rc xxx.xxx.xxx.xxx 
 # 访问: http://tuanduimao.rc
-docker run -d --name=tuanduimao  tuanduimao/tuanduimao:0.9rc 
+docker run -d --name=tuanduimao  -p 80:80 -p 443:443 tuanduimao/tuanduimao:0.9rc 
 
 
 # 挂载目录
 # Host: tuanduimao.rc xxx.xxx.xxx.xxx 
 # 访问: http://tuanduimao.rc
 docker run -d --name=tuanduimao \
-    -p 85:80 -p 443:443 \
+    -p 80:80 -p 443:443 \
     -v /host/logs:/logs  \
 	 -v /host/data:/data  \
 	 -v /host/config:/config  \
@@ -33,7 +33,7 @@ docker run -d --name=tuanduimao \
 # 访问: http://yourdomain.com
 docker run -d  --name=tuanduimao  \
     -e "HOST=yourdomain.com" \
-    -p 85:80 -p 443:443 \
+    -p 80:80 -p 443:443 \
     -v /host/logs:/logs  \
 	 -v /host/data:/data  \
 	 -v /host/config:/config  \
@@ -47,7 +47,7 @@ docker run -d  --name=tuanduimao  \
 docker run -d   --name=tuanduimao \
     -e "HOST=yourdomain.com" \
     -e "HTTPS=FORCE"  \
-    -p 85:80 -p 443:443 \
+    -p 80:80 -p 443:443 \
     -v /host/logs:/logs  \
 	 -v /host/data:/data  \
 	 -v /host/config:/config  \
