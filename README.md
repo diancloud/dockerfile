@@ -1,7 +1,7 @@
 团队猫 Dockerfile
 ==============================
 
-![团队猫主图](http://7xleg1.com1.z0.glb.clouddn.com/tdm.png)
+![团队猫主图](http://7xleg1.com1.z0.glb.clouddn.com/git/tdm.png)
 
 快速构建客户管理、内容管理、资料管理、流程审批等功能的企业应用。支持独立部署、二次开发，可快速接入企业微信等协作平台。团队猫提供了一个应用引擎和 MVC 程序框架，可大幅度提升程序开发、发布效率。官方网站 http://tuanduimao.com
 
@@ -11,14 +11,14 @@
 ```bash
 
 # 默认启动 
-# Host: tuanduimao.rc xxx.xxx.xxx.xxx 
-# 访问: http://tuanduimao.rc
+# Host: tuanduimao.lc xxx.xxx.xxx.xxx 
+# 访问: http://tuanduimao.lc
 docker run -d --name=tuanduimao  -p 80:80 -p 443:443 tuanduimao/tuanduimao:0.9rc 
 
 
 # 挂载目录
-# Host: tuanduimao.rc xxx.xxx.xxx.xxx 
-# 访问: http://tuanduimao.rc
+# Host: tuanduimao.lc xxx.xxx.xxx.xxx 
+# 访问: http://tuanduimao.lc
 docker run -d --name=tuanduimao \
     -p 80:80 -p 443:443 \
     -v /host/logs:/logs  \
@@ -43,6 +43,7 @@ docker run -d  --name=tuanduimao  \
 
 # 启用 HTTPS 
 # Host/解析: yourdomain.com xxx.xxx.xxx.xxx 
+# 上传 yourdomain.com.crt & yourdomain.com.key 证书文件到  /config/crt/
 # 访问: https://yourdomain.com
 docker run -d   --name=tuanduimao \
     -e "HOST=yourdomain.com" \
@@ -62,10 +63,10 @@ docker run -d   --name=tuanduimao \
 /logs  日志目录
 
 /data  程序产生数据存放目录
-	/data/composer  composer 文件夹
 	/data/stor/public 存储文件夹 （公开)
 	/data/stor/private 存储文件夹 （私密)
 
+/composer Composer 目录
 /code   团队猫主程序
 /apps   团队猫应用程序目录
 
@@ -396,10 +397,10 @@ docker run -d  \
 /logs  日志目录
 
 /data  程序产生数据存放目录
-	/data/composer  composer 文件夹
 	/data/stor/public 存储文件夹 （公开)
 	/data/stor/private 存储文件夹 （私密)
 
+/composer Composer 目录
 /code   团队猫主程序
 /apps   团队猫应用程序目录
 
