@@ -72,7 +72,7 @@ VOLUME ["/run","/data", "/code", "/logs", "/config"]
 ENV PATH=${PATH}:/opt/php7/bin:/opt/php7/sbin:/opt/openresty/bin:/opt/openresty/nginx/sbin \
 	CONF=default 
 
-ADD sources.list /etc/apt/sources.list
+# ADD sources.list /etc/apt/sources.list
 ADD config /defaults/config
 ADD start.sh /start.sh
 
