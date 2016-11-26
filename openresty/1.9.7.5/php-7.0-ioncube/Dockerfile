@@ -78,10 +78,11 @@ ADD start.sh /start.sh
 
 RUN cd /tmp  && \
 	apt-get update  && \
-	apt-get install -y libreadline-dev libncurses5-dev libpcre3-dev \
+	apt-get install -y vim libreadline-dev libncurses5-dev libpcre3-dev \
 	ca-certificates  \
 	libxml2-dev wget perl make gcc g++  libxpm-dev \
 	automake autoconf libtool binutils \
+	libc-client2007e libc-client2007e-dev libkrb5-dev \
     libcurl4-openssl-dev libgnutls-dev libssl-dev perl make build-essential  \
     libmcrypt-dev bash  bzip2  libpng-dev libbz2-dev libfreetype6-dev libwebp-dev libjpeg-dev gettext  && \
 
@@ -93,7 +94,8 @@ RUN cd /tmp  && \
     #	libxml2-dev wget perl make gcc g++ libcurl curl-dev gd gd-dev  libpng libpng-dev libwebp libwebp-dev libxpm libxpm-dev  \
     #	readline-dev freetype freetype-dev automake autoconf libtool binutils  \
     #	libjpeg  libjpeg-turbo-dev libmcrypt libmcrypt-dev bash libintl bzip2 bzip2-dev  gettext  gettext-dev && \
-    export DOWN="http://dockerfile.tuanduimao.com/openresty/1.9.7.5/download" && \
+    # export DOWN="http://dockerfile.tuanduimao.com/openresty/1.9.7.5/download" && \
+    export DOWN="https://github.com/diancloud/dockerfile/raw/master/openresty/1.9.7.5/download" && \
     # 
     # 下载编译安装 openresty
     # 
@@ -142,6 +144,9 @@ RUN cd /tmp  && \
 	--with-gettext \
 	--with-mysqli \
 	--with-mhash \
+	--with-imap  \
+	--with-imap-ssl \
+	--with-kerberos \
 	--enable-calendar \
 	--enable-dba \
 	--enable-exif \
