@@ -13,13 +13,14 @@
 # 默认启动 
 # Host: tuanduimao.lc xxx.xxx.xxx.xxx 
 # 访问: http://tuanduimao.lc
-docker run -d --name=tuanduimao  -p 80:80 -p 443:443 tuanduimao/tuanduimao:0.9rc 
+docker run -d --name=tuanduimao --add-host tuanduimao.lc:172.17.0.1   -p 80:80 -p 443:443 tuanduimao/tuanduimao:0.9rc 
 
 
 # 挂载目录
 # Host: tuanduimao.lc xxx.xxx.xxx.xxx 
 # 访问: http://tuanduimao.lc
 docker run -d --name=tuanduimao \
+	--add-host tuanduimao.lc:172.17.0.1 \
     -p 80:80 -p 443:443 \
     -v /host/logs:/logs  \
 	 -v /host/data:/data  \
@@ -32,6 +33,7 @@ docker run -d --name=tuanduimao \
 # Host/解析: yourdomain.com xxx.xxx.xxx.xxx 
 # 访问: http://yourdomain.com
 docker run -d  --name=tuanduimao  \
+	--add-host yourdomain.com:172.17.0.1 \
     -e "HOST=yourdomain.com" \
     -p 80:80 -p 443:443 \
     -v /host/logs:/logs  \
@@ -46,6 +48,7 @@ docker run -d  --name=tuanduimao  \
 # 上传 yourdomain.com.crt & yourdomain.com.key 证书文件到  /config/crt/
 # 访问: https://yourdomain.com
 docker run -d   --name=tuanduimao \
+	--add-host yourdomain.com:172.17.0.1 \
     -e "HOST=yourdomain.com" \
     -e "HTTPS=FORCE"  \
     -p 80:80 -p 443:443 \
