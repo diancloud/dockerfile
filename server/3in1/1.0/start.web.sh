@@ -20,11 +20,11 @@ if [ ! -d "/logs/web" ]; then
 	mkdir -p /logs/web
 fi
 
-if [ ! -d "/config/mysql" ]; then
+if [ ! -d "/config/web" ]; then
 	mkdir -p /config/web
 fi
 
-if [ ! -d "/data/mysql" ]; then
+if [ ! -d "/data/web" ]; then
 	mkdir -p /data/web
 fi
 
@@ -33,20 +33,6 @@ if [ ! -d "/code" ]; then
 fi
 
 
-chmod +x /code/bin/t.phar
-rm -f /bin/tdm
-
-if [ ! -f "/bin/tdm" ]; then
-    ln -s /code/bin/t.phar /bin/tdm
-fi
-
-if [ ! -f "/bin/tmd" ]; then
-    ln -s /code/bin/t.phar /bin/tmd
-fi
-
-if [ ! -f "/bin/phpunit" ]; then
-    ln -s /composer/vendor/bin/phpunit /bin/phpunit
-fi
 
 
 # 检查用户组
@@ -65,35 +51,33 @@ if [ "$ug" != "$USER:$GROUP" ]; then
 	chown -R $USER:$GROUP /data/web
 fi
 
-# ug=$(ls -l /code | awk '{print $3":"$4}')
-# if [ "$ug" != ":$GROUP" ]; then
-# 	chown -R $USER:$GROUP /code 
-# fi
 
 # 更新配置文件
 if [ -z $CONF ]; then
 	CONF="default"
 fi
 
+if [ -z $MAIN_HOST ]; then
+	MAIN_HOST="tuanduimao.lc"
+fi
 
-
-if [ ! -d "/defaults/mysql/$CONF" ]; then
+if [ ! -d "/defaults/web/$CONF" ]; then
 	CONF="default"
 	echo "$CONF not exist. default selected!" >> $LOG
 fi
 
 if [ ! -d "/config/web/nginx" ]; then
 	cp -r "/defaults/web/$CONF/nginx" /config/web/
-	sed -i 's/user www-data/user $USER $GROUP/g' /config/web/nginx/nginx.conf
+	sed -i "s/user www-data/user $USER $GROUP/g" /config/web/nginx/nginx.conf
 fi
 
 if [ ! -d "/config/web/php" ]; then
 	cp -R "/defaults/web/$CONF/php" /config/web/
 
-	sudo sed -i "s/user = www-data/user = $USER/g"  /config/web/php/fpm/pool.d/www.conf
-	sudo sed -i "s/group = www-data/group = $GROUP/g" /config/web/php/fpm/pool.d/www.conf
-	sudo sed -i "s/listen.owner = www-data/listen.owner = $GROUP/g" /config/web/php/fpm/pool.d/www.conf
-	sudo sed -i "s/listen.group = www-data/listen.group = $GROUP/g" /config/web/php/fpm/pool.d/www.conf
+	sed -i "s/user = www-data/user = $USER/g"  /config/web/php/fpm/php-fpm.d/www.conf
+	sed -i "s/group = www-data/group = $GROUP/g" /config/web/php/fpm/php-fpm.d/www.conf
+	sed -i "s/listen.owner = www-data/listen.owner = $GROUP/g" /config/web/php/fpm/php-fpm.d/www.conf
+	sed -i "s/listen.group = www-data/listen.group = $GROUP/g" /config/web/php/fpm/php-fpm.d/www.conf
 fi
 
 if [ ! -d "/config/web/lua" ]; then
@@ -106,7 +90,7 @@ if [ ! -d "/config/crt" ]; then
 fi
 
 # copy php.ini 
-if [ -f "/config/php/php.ini" ]; then
+if [ -f "/config/web/php/php.ini" ]; then
 	cp -f /config/web/php/php.ini  /opt/php7/etc/php.ini
 fi
 
@@ -239,13 +223,8 @@ fi
 
 
 # 启动 PHP-FPM
-/opt/php7/sbin/php-fpm -c /config/php/php.ini  -y /config/php/fpm/php-fpm.conf >> $LOG
+/opt/php7/sbin/php-fpm -c /config/web/php/php.ini  -y /config/web/php/fpm/php-fpm.conf >> $LOG
 
 # 启动 Nginx
-/opt/openresty/nginx/sbin/nginx -c /config/nginx/nginx.conf >> $LOG
-
-# 安装 composer
-if [ ! -f "/data/composer/composer.lock" ]; then
-	/bin/tdm composer
-fi
+/opt/openresty/nginx/sbin/nginx -c /config/web/nginx/nginx.conf >> $LOG
 

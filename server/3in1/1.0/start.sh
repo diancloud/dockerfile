@@ -9,7 +9,7 @@ if [ -z $GROUP ]; then
 	GROUP="www-data"
 fi
 useradd  -g $GROUP $USER
-/start/start.redis.sh 
-/start/start.mysql.sh 
-/start/start.web.sh 
+/start/redis.sh 
+/start/mysql.sh 
+/start/web.sh 
 /usr/bin/tail -f /dev/null
