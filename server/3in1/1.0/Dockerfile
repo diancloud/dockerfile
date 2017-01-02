@@ -50,7 +50,7 @@
 #  Zend OPcache
 #  
 #  TEST:
-#     docker build -t tuanduimao/openresty-php7-ioncube:latest .
+#     docker build -t tuanduimao/server:3in1 .
 #     docker run --rm -it tuanduimao/openresty-php7-ioncube  /bin/sh
 #     
 #     
