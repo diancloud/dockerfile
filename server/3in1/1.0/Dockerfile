@@ -244,7 +244,7 @@ RUN cd /tmp  && \
 		/usr/lib/perl5   \
    		/usr/lib/python2.7  \
    		/usr/include/* \
-   		/usr/share/* \
+   	#	/usr/share/* \
    		/var/lib/* \
    		/opt/php7/bin/phpdbg \
    		/opt/php7/bin/php-cgi && \
