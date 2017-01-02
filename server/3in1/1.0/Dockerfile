@@ -70,10 +70,15 @@ MAINTAINER diancloud.com <dev@diancloud.com>
 
 VOLUME ["/run","/data", "/code", "/logs", "/config"]
 ENV PATH=${PATH}:/opt/php7/bin:/opt/php7/sbin:/opt/openresty/bin:/opt/openresty/nginx/sbin \
-	CONF=default 
+	CONF=default \
+	USER=www-data \
+	GROUP=www-data
 
 # ADD sources.list /etc/apt/sources.list
-ADD config /defaults/config
+ADD config /defaults
+ADD start.mysql.sh /start/mysql.sh
+ADD start.redis.sh /start/redis.sh
+ADD start.web.sh /start/web.sh
 ADD start.sh /start.sh
 
 RUN cd /tmp  && \
@@ -95,7 +100,7 @@ RUN cd /tmp  && \
     #	readline-dev freetype freetype-dev automake autoconf libtool binutils  \
     #	libjpeg  libjpeg-turbo-dev libmcrypt libmcrypt-dev bash libintl bzip2 bzip2-dev  gettext  gettext-dev && \
     # export DOWN="http://dockerfile.tuanduimao.com/openresty/1.9.7.5/download" && \
-    export DOWN="https://github.com/diancloud/dockerfile/raw/master/openresty/1.9.7.5/download" && \
+    export DOWN="https://github.com/diancloud/dockerfile/raw/master/download" && \
     # 
     # 下载编译安装 openresty
     # 
@@ -125,7 +130,12 @@ RUN cd /tmp  && \
     make install && \
     #
     # 安装 MySQL 
+    # 
+    # /etc/mysql/mariadb.conf.d
+    # /etc/mysql/mariadb.conf.d/50-mysqld_safe.cnf  
+    # /etc/mysql/mariadb.conf.d/50-server.cnf
     #
+    apt-get install -y mariadb-server-10.0 && \
     # 
     # 下载编译安装 PHP7
     # 
@@ -222,6 +232,7 @@ RUN cd /tmp  && \
 	# 添加WEB用户
 	# 
 	adduser www-data www-data && \
+	chmod +x /start.sh && chmod +x /start/* && \
 	# 
 	# 清理无用文件
 	#
