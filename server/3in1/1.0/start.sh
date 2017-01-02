@@ -8,7 +8,8 @@ fi
 if [ -z $GROUP ]; then
 	GROUP="www-data"
 fi
-useradd  -g $GROUP $USER
+groupadd $GROUP
+useradd -g $GROUP $USER
 /start/redis.sh 
 /start/mysql.sh 
 /start/web.sh 
