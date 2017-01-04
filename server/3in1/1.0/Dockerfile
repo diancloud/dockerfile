@@ -23,7 +23,7 @@
 #  	 FROM tuanduimao/openresty-php7-ioncube:1.9.7.5
 #  	 
 #  BUILD:
-#     docker build -t tuanduimao/openresty-php7-ioncube:1.9.7.5  -t tuanduimao/openresty-php7-ioncube:latest .
+#     docker build -t tuanduimao/server:3in1  .
 #     
 #     
 #  PHP 编译参数: 
