@@ -10,7 +10,24 @@ if [ -z $GROUP ]; then
 fi
 groupadd $GROUP
 useradd -g $GROUP $USER
-/start/redis.sh 
-/start/mysql.sh 
-/start/web.sh 
+
+if [ -z $REDIS ]; then
+	REDIS="on"
+fi
+
+if [ -z $MYSQL ]; then
+	MYSQL="on"
+fi
+
+if [ "$REDIS" = "on" ]; then
+	/start/redis.sh 
+fi
+
+if [ "$MYSQL" = "on" ]; then
+	/start/mysql.sh
+	/start/web.sh
+else
+	/start/web.sh nomysql
+fi
+
 /usr/bin/tail -f /dev/null

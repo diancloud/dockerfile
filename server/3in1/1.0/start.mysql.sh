@@ -30,8 +30,8 @@ if [ "$ug" != "root:root" ]; then
 fi
 
 ug=$(ls -l /logs/mysql | awk '{print $3":"$4}')
-if [ "$ug" != "root:root" ]; then
-	chown -R root:root /logs/mysql 
+if [ "$ug" != "mysql:mysql" ]; then
+	chown -R mysql:mysql /logs/mysql 
 fi
 
 ug=$(ls -l /data/mysql | awk '{print $3":"$4}')

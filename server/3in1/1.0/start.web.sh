@@ -5,6 +5,7 @@ MAIN_HOST=$HOST
 HTTPS=$HTTPS
 USER=$USER
 GROUP=$GROUP
+MYSQLOFF=$1
 LOG="/logs/web/shell.log"
 
 if [ -z $USER ]; then
