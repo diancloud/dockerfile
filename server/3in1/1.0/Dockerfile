@@ -88,6 +88,7 @@ RUN cd /tmp  && \
 	libxml2-dev wget perl make gcc g++  libxpm-dev \
 	automake autoconf libtool binutils \
 	libc-client2007e libc-client2007e-dev libkrb5-dev \
+	libmagickwand-dev \
     libcurl4-openssl-dev libgnutls-dev libssl-dev perl make build-essential  \
     libmcrypt-dev bash  bzip2  libpng-dev libbz2-dev libfreetype6-dev libwebp-dev libjpeg-dev gettext  && \
 
@@ -217,6 +218,19 @@ RUN cd /tmp  && \
     CFLAGS="-O3 -fPIC" make && make install && \
     echo ";redis-ext" >>  /opt/php7/etc/php.ini && \
 	echo "extension=redis.so" >>  /opt/php7/etc/php.ini && \
+	#
+	# 下载编译安装 imagick
+	#
+	cd /tmp && \
+    wget -q "$DOWN/imagick-3.4.3.tgz"  && \
+    tar xfz imagick-3.4.3.tgz && \
+    cd imagick-3.4.3  && \
+    export PKG_CONFIG_PATH=/opt/php7/bin/php-config && \
+    /opt/php7/bin/phpize && \
+    CFLAGS="-O3 -fPIC"  ./configure && \
+    CFLAGS="-O3 -fPIC" make && make install && \
+    echo ";imagick-ext" >>  /opt/php7/etc/php.ini && \
+	echo "extension=imagick.so" >>  /opt/php7/etc/php.ini && \
 	#
 	# 下载编译安装XDebug 扩展
 	#
