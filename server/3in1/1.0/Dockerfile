@@ -113,7 +113,7 @@ RUN cd /tmp  && \
     # 
     # 下载编译安装 mhash
     #
-    cd /tmp && \ 
+    cd /tmp && \
     wget -q "$DOWN/mhash-0.9.9.9.tar.gz"  && \
     tar xfz mhash-0.9.9.9.tar.gz  && \
     cd mhash-0.9.9.9 && \
@@ -237,19 +237,18 @@ RUN cd /tmp  && \
 	# 
 	# 清理无用文件
 	#
-	echo "Clean"  && \
-	apt-get remove -y build-essential gcc make  && \
-	rm -rf /tmp/*  \
-		/usr/libexec/* \
-		/usr/lib/gcc   \
-		/usr/lib/perl5   \
-   		/usr/lib/python2.7  \
-   		/usr/include/* \
-   	#	/usr/share/* \
-   		/var/lib/* \
-   		/opt/php7/bin/phpdbg \
-   		/opt/php7/bin/php-cgi && \
-   		   
+	# echo "Clean"  && \
+	# apt-get remove -y build-essential gcc make  && \
+	# rm -rf /tmp/*  \
+	# 	/usr/libexec/* \
+	# 	/usr/lib/gcc   \
+	# 	/usr/lib/perl5   \
+    #   /usr/lib/python2.7  \
+    #   /usr/include/* \
+    #   /var/lib/* \
+    #   /opt/php7/bin/phpdbg \
+    #   /opt/php7/bin/php-cgi && \
+
 	echo "Complete"
 
 ADD extension/ioncube_loader_lin_7.0.so /opt/php7/lib/php/extensions/no-debug-non-zts-20151012/ioncube_loader_lin_7.0.so
