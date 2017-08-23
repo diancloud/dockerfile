@@ -85,6 +85,7 @@ RUN cd /tmp  && \
 	apt-get update  && \
 	apt-get install -y vim libreadline-dev libncurses5-dev libpcre3-dev \
 	ca-certificates  \
+	ffmpeg \
 	libxml2-dev wget perl make gcc g++  libxpm-dev \
 	automake autoconf libtool binutils \
 	libc-client2007e libc-client2007e-dev libkrb5-dev \
