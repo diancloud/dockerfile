@@ -1,0 +1,255 @@
+#!/bin/sh
+
+#生成Password
+genpasswd(){
+	cat /dev/urandom | head -n 10 | md5sum | head -c 10
+}
+
+# 创建用户 
+# createuser username hostname
+createuser() {
+	name="$1"
+	host="$2"
+	passwd=$(genpasswd)
+	CMD="CREATE USER '$name'@'$host' IDENTIFIED BY '$passwd';flush privileges;"; 
+	/usr/bin/mysql -e "$CMD"
+	echo $passwd
+}
+
+
+# 删除用户 
+# createuser username hostname
+deleteuser() {
+	name="$1"
+	host="$2"
+	CMD="DROP USER '$name'@'$host'; flush privileges;"
+	/usr/bin/mysql -e "$CMD"
+	echo "DROP USER Complete"
+}
+
+
+# 创建数据库
+# createdb dbname
+createdb() {
+	name="$1"
+	CMD="CREATE DATABASE IF NOT EXISTS $name DEFAULT CHARSET utf8 COLLATE utf8_general_ci;"
+	/usr/bin/mysql -e "$CMD"
+	echo "CREATE DATABASE Complete"
+}
+
+# 删除数据库
+# dropdb dbname
+deletedb() {
+	name="$1"
+	CMD="DROP DATABASE $name"
+	/usr/bin/mysql -e "$CMD"
+	echo "DROP DATABASE Complete"
+}
+
+
+grantdb() {
+	dbname="$1"
+	user="$2"
+	host="$3"
+	CMD="GRANT ALL ON $dbname.* TO '$user'@'$host'; flush privileges;"
+	/usr/bin/mysql -e "$CMD"
+	echo "GRANT Complete"
+}
+
+
+
+# 创建一个用户
+if [ "$1" == "cu" ]; then
+	if [ -z "$2"  ]; then
+		echo "USEAGE: my cu username <host> "
+		exit
+	fi
+
+	host="$3"
+	if [ -z "$host"  ]; then
+		host='%'
+	fi
+	createuser $2 $host
+	exit
+fi
+
+
+# 删除一个用户
+if [ "$1" == "du" ]; then
+	if [ -z "$2"  ]; then
+		echo "USEAGE: my du username <host> "
+		exit
+	fi
+
+	if [  "$2" == "root"  ]; then
+		echo "you can't delete root user"
+		exit
+	fi
+
+	host="$3"
+	if [ -z "$host"  ]; then
+		host='%'
+	fi
+
+	deleteuser $2 $host
+	exit
+fi
+
+# 创建一个数据库
+if [ "$1" == "cd" ]; then
+	if [ -z "$2"  ]; then
+		echo "USEAGE: my cd dbname <username> "
+		exit
+	fi
+
+	createdb $2
+
+	host="$4"
+	if [ -z "$host" ]; then
+		host='%'
+	fi
+
+	if [ ! -z "$3"  ]; then
+		grantdb $2 $3 $host 
+	fi
+
+	exit
+fi
+
+
+# 删除一个数据库
+if [ "$1" == "dd" ]; then
+
+	if [ -z "$2"  ]; then
+		echo "USEAGE: my dd dbname "
+		exit
+	fi
+
+	if [  "$2" == "mysql"  ]; then
+		echo "you can't delete mysql database"
+		exit
+	fi
+
+	if [  "$2" == "information_schema"  ]; then
+		echo "you can't delete information_schema database"
+		exit
+	fi
+
+	if [  "$2" == "performance_schema"  ]; then
+		echo "you can't delete performance_schema database"
+		exit
+	fi
+
+	deletedb $2
+	exit
+fi
+
+
+# 给用户开通某个数据库权限
+if [ "$1" == "pd" ]; then
+	if [ -z "$2"  ]; then
+		echo "USEAGE: my pd username dbname <host> "
+		exit
+	fi
+
+	if [ -z "$3"  ]; then
+		echo "USEAGE: my pd username dbname <host>"
+		exit
+	fi
+
+	host="$4"
+	if [ -z "$host" ]; then
+		host='%'
+	fi
+
+
+	grantdb $2 $3 $host
+	exit
+fi
+
+
+# 创建一个用户和数据库
+if [ "$1" == "cud" ]; then
+	if [ -z "$2"  ]; then
+		echo "USEAGE: my cud database username  <hostname> "
+		exit
+	fi
+
+	if [ -z "$3"  ]; then
+		echo "USEAGE: my cud database username  <hostname> "
+		exit
+	fi
+
+	host="$4"
+	if [ -z "$host" ]; then
+		host='%'
+	fi
+
+	passwd=$(createuser $3 $host)
+	db=$(createdb $2)
+	prv=$(grantdb $2 $3 $host)
+	echo "$passwd"
+	exit
+fi
+
+
+# 删除一个用户和数据库
+if [ "$1" == "dud" ]; then
+	if [ -z "$2"  ]; then
+		echo "USEAGE: my dud database username  <hostname> "
+		exit
+	fi
+
+	if [ -z "$3"  ]; then
+		echo "USEAGE: my dud database username  <hostname> "
+		exit
+	fi
+
+	host="$4"
+	if [ -z "$host" ]; then
+		host='%'
+	fi
+
+	deletedb $2
+	deleteuser $3 $host
+	exit
+fi
+
+if [ "$1" == "ld" ]; then
+	CMD="show databases" 
+	/usr/bin/mysql -e "$CMD"
+	exit
+fi
+
+if [ "$1" == "lu" ]; then
+	CMD="select User,host from user;" 
+	/usr/bin/mysql mysql -e "$CMD"
+	exit
+fi
+
+if [ "$1" == "init" ]; then
+	# 检查数据目录
+	if [ ! -d "/data/mysql" ]; then
+		/usr/bin/mysql_install_db --basedir=/usr --datadir=/data/mysql --user=mysql && \
+		chown -R mysql:mysql /data/mysql
+	fi
+
+	# 检查用户组
+	ug=$(ls -l  /data/mysql | awk '{print $3$4}')
+	if [ "$ug" != "mysqlmysql" ]; then
+		chown -R mysql:mysql /data/mysql
+	fi
+	exit
+fi
+
+echo "USEAGE: my [cu|du|cd|dd|pd|cud] "
+echo "my cu username <hostname> -  create new user and return password"
+echo "my du username <hostname>   -  delete user  "
+echo "my cd database <username> <hostname>   -  create new database and grant privilege to username "
+echo "my dd database  -  delete  database "
+echo "my pd database username <hostname>  - grant user  the database all privilege "
+echo "my cud database username  <hostname>   - create user and database return password, than the database grant user the database  all privilege   "
+echo "my dud database username  <hostname>   - delete user and database  "
+echo "my init  - reinit data path"
+echo "my ld    - show all databases "
+echo "my lu   - show all users "
