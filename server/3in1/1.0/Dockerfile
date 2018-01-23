@@ -23,7 +23,7 @@
 #  	 FROM tuanduimao/openresty-php7-ioncube:1.9.7.5
 #  	 
 #  BUILD:
-#     docker build -t tuanduimao/server:3in1  .
+#     docker build -t xpmse/server:3in1  .
 #     
 #     
 #  PHP 编译参数: 
@@ -69,7 +69,7 @@ FROM tuanduimao/ubuntu:16.04
 MAINTAINER diancloud.com <dev@diancloud.com>
 
 VOLUME ["/run","/data", "/code", "/logs", "/config"]
-ENV PATH=${PATH}:/opt/php7/bin:/opt/php7/sbin:/opt/openresty/bin:/opt/openresty/nginx/sbin \
+ENV PATH=${PATH}:/opt/php7/bin:/opt/php7/sbin:/opt/openresty/bin:/opt/openresty/nginx/sbin:/node/bin \
 	CONF=default \
 	USER=www-data \
 	GROUP=www-data
@@ -257,7 +257,6 @@ RUN cd /tmp  && \
 	wget https://nodejs.org/dist/v8.9.4/node-v8.9.4-linux-x64.tar.xz  && \
 	tar xvf  node-v8.9.4-linux-x64.tar.xz  && \
 	mv node-v8.9.4-linux-x64  /node && \
-	export PATH=$PATH:/node/bin && \
 	npm install -g cnpm --registry=https://registry.npm.taobao.org  && \
 	cnpm install puppeteer --global && \
 	#
