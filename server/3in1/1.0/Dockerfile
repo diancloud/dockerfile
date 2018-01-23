@@ -91,6 +91,7 @@ RUN cd /tmp  && \
 	libc-client2007e libc-client2007e-dev libkrb5-dev \
 	libmagickwand-dev \
     libcurl4-openssl-dev libgnutls-dev libssl-dev perl make build-essential  \
+    libxrender1 libxtst6 libxi6 libnss3 libxss1 libatk-bridge2.0-0 libgtk-3-0 \
     libmcrypt-dev bash  bzip2  libpng-dev libbz2-dev libfreetype6-dev libwebp-dev libjpeg-dev gettext  && \
 
 	#apk update && \
@@ -249,10 +250,27 @@ RUN cd /tmp  && \
 	# 
 	adduser www-data www-data && \
 	chmod +x /start.sh && chmod +x /start/* && \
+	#
+	# 安装 NodeJS
+	#
+	cd /tmp && \
+	wget https://nodejs.org/dist/v8.9.4/node-v8.9.4-linux-x64.tar.xz  && \
+	tar xvf  node-v8.9.4-linux-x64.tar.xz  && \
+	mv node-v8.9.4-linux-x64  /node && \
+	export PATH=$PATH:/node/bin && \
+	npm install -g cnpm --registry=https://registry.npm.taobao.org  && \
+	cnpm install puppeteer --global && \
+	#
+	# 权限
+	#
+	mkdir -p /var/www/.config  && \
+	chown -R www-data:www-data /var/www/.config  && \
+	chmod -R 755 /node/lib/node_modules && \
 	# 
 	# 清理无用文件
 	#
-	# echo "Clean"  && \
+	echo "Clean"  && \
+	rm -rf /tmp/* && \
 	# apt-get remove -y build-essential gcc make  && \
 	# rm -rf /tmp/*  \
 	# 	/usr/libexec/* \
