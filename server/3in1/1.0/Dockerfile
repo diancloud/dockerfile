@@ -106,7 +106,7 @@ RUN cd /tmp  && \
     #
     cd /tmp && \
     wget -q "$DOWN/openresty-1.13.6.1.tar.gz"  && \
-    tar xfz openresty-1.13.6.1.tar && \
+    tar xfz openresty-1.13.6.1.tar.gz && \
     cd openresty-1.13.6.1 && \
     CFLAGS="-O3 -fPIC"  ./configure --prefix=/opt/openresty \
     --with-luajit \
