@@ -244,7 +244,7 @@ RUN cd /tmp  && \
 	cd /tmp && \
     wget -q "$DOWN/xdebug-2.6.0.tgz"  && \
     tar xfz xdebug-2.6.0.tgz && \
-    cd xdebug-2.4.1  && \
+    cd xdebug-2.6.0  && \
     /opt/php7/bin/phpize && \
     CFLAGS="-O3 -fPIC"  ./configure --enable-xdebug && \
     CFLAGS="-O3 -fPIC"  make && make install && \
