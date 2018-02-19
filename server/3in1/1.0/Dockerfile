@@ -107,10 +107,10 @@ RUN cd /tmp  && \
     # 
     # 下载编译安装 openresty
     # 
-    wget -q "$DOWN/openresty-1.9.7.5.tar.gz"  && \
-    tar xfz openresty-1.9.7.5.tar.gz  && \
-    cd openresty-1.9.7.5 && \
-    CFLAGS="-O3 -fPIC"  ./configure --with-luajit --prefix=/opt/openresty && \
+    wget -q "$DOWN/openresty-1.13.6.1.tar"  && \
+    tar xfz openresty-1.13.6.1.tar && \
+    cd openresty-1.13.6.1 && \
+    CFLAGS="-O3 -fPIC"  ./configure --with-luajit --prefix=/opt/openresty --with-http_v2_module && \
     make && \
     make install  && \
     # 
@@ -143,9 +143,9 @@ RUN cd /tmp  && \
     # 下载编译安装 PHP7
     # 
     cd /tmp && \
-    wget -q "$DOWN/php-7.0.9.tar.gz"  && \
-    tar xfz php-7.0.9.tar.gz && \
-    cd php-7.0.9  && \
+    wget -q "$DOWN/php-7.2.2.tar.gz"  && \
+    tar xfz php-7.2.2.tar.gz && \
+    cd php-7.2.2  && \
     CFLAGS="-O3 -fPIC" ./configure --prefix=/opt/php7 \
 	--with-config-file-path=/opt/php7/etc \
 	--enable-fpm \
@@ -197,7 +197,7 @@ RUN cd /tmp  && \
 	--enable-opcache \
 	--disable-rpath && \
 	make && make install && \
-	cp /tmp/php-7.0.9/php.ini-production  /opt/php7/etc/php.ini && \
+	cp /tmp/php-7.2.2/php.ini-production  /opt/php7/etc/php.ini && \
 	#
 	# Load zend_extension=ioncube_loader_lin_7.0.so
 	#
