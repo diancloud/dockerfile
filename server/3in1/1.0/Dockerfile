@@ -1,15 +1,14 @@
 ## ===========================================
-#  团队猫 DockerFile 
+#  XpmSE DockerFile 
 #  
-#  Openresty 1.9.7.5 + PHP 7.0
+#  Openresty 1.13.6.1 + PHP 7.2.2
+#  升级 HttpServer 支持 Http2
 #  
-#  
-#  @Name tuanduimao/openresty-php7:1.9.7.5
-#  @Ver  1.9.7.5 PHP 7.0
+#  @Name xpmse/server:3in1
+#  @Ver  1.13.6.1 PHP 7.2.2
 #  @By Weiping <weiping@diancloud.com>
 #  
-#  
-#  
+
 #  USEAGE:
 #  	  docker run -d \
 #		 -v /host/logs:/logs  \
@@ -17,10 +16,10 @@
 #		 -v /host/config:/config  \
 #		 -v /host/code:/code  \
 #		 -p 85:80 \
-#		 tuanduimao/openresty-php7-ioncube
+#		 xpmse/server:3in1
 #  	 
 #  FROM:
-#  	 FROM tuanduimao/openresty-php7-ioncube:1.9.7.5
+#  	 FROM tuanduimao/ubuntu:16.04
 #  	 
 #  BUILD:
 #     docker build -t xpmse/server:3in1  .
@@ -50,8 +49,8 @@
 #  Zend OPcache
 #  
 #  TEST:
-#     docker build -t tuanduimao/server:3in1 .
-#     docker run --rm -it tuanduimao/openresty-php7-ioncube  /bin/sh
+#     docker build -t xpmse/server:3in1 .
+#     docker run --rm -it xpmse/server:3in1  /bin/sh
 #     
 #     
 #  	  docker run --rm -it  \
@@ -60,7 +59,7 @@
 #  	  		 -v /home/vagrant/test/http/config:/config  \
 #  	  		 -v /home/vagrant/test/http/code:/code  \
 #  	  		 -p 85:80 \
-#  	  		 tuanduimao/openresty-php7  /bin/sh
+#  	  		 xpmse/server:3in1  /bin/sh
 #  	  
 # ===========================================
 
@@ -110,7 +109,14 @@ RUN cd /tmp  && \
     wget -q "$DOWN/openresty-1.13.6.1.tar"  && \
     tar xfz openresty-1.13.6.1.tar && \
     cd openresty-1.13.6.1 && \
-    CFLAGS="-O3 -fPIC"  ./configure --with-luajit --prefix=/opt/openresty --with-http_v2_module && \
+    CFLAGS="-O3 -fPIC"  ./configure --with-luajit --prefix=/opt/openresty \
+    --with-http_v2_module \
+    --with-http_dav_module \
+    --with-http_flv_module \
+    --with-http_mp4_module \
+    --with-http_realip_module \
+    --with-http_gzip_static_module \
+    --with-http_geoip_module && \
     make && \
     make install  && \
     # 
