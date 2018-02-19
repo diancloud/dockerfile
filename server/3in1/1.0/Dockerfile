@@ -288,6 +288,6 @@ RUN cd /tmp  && \
 
 	echo "Complete"
 
-ADD extension/ioncube_loader_lin_7.0.so /opt/php7/lib/php/extensions/no-debug-non-zts-20151012/ioncube_loader_lin_7.0.so
+ADD extension/ioncube_loader_lin_7.2.so /opt/php7/lib/php/extensions/no-debug-non-zts-20170718/ioncube_loader_lin_7.2.so
 EXPOSE 80 443 6379 3306
 CMD ["sh", "/start.sh"]
