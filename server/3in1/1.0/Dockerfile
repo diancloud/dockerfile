@@ -92,8 +92,6 @@ RUN cd /tmp  && \
     libcurl4-openssl-dev libgnutls-dev libssl-dev perl make build-essential  \
     libxrender1 libxtst6 libxi6 libnss3 libxss1 libatk-bridge2.0-0 libgtk-3-0 \
     libmcrypt-dev bash  bzip2  libpng-dev libbz2-dev libfreetype6-dev libwebp-dev libjpeg-dev gettext  && \
-
-	#apk update && \
 	# 
 	# 编译环境 下载工具
 	# 
@@ -105,11 +103,13 @@ RUN cd /tmp  && \
     export DOWN="https://github.com/diancloud/dockerfile/raw/master/download" && \
     # 
     # 下载编译安装 openresty
-    # 
-    wget -q "$DOWN/openresty-1.13.6.1.tar"  && \
+    #
+    cd /tmp && \
+    wget -q "$DOWN/openresty-1.13.6.1.tar.gz"  && \
     tar xfz openresty-1.13.6.1.tar && \
     cd openresty-1.13.6.1 && \
-    CFLAGS="-O3 -fPIC"  ./configure --with-luajit --prefix=/opt/openresty \
+    CFLAGS="-O3 -fPIC"  ./configure --prefix=/opt/openresty \
+    --with-luajit \
     --with-http_v2_module \
     --with-http_dav_module \
     --with-http_flv_module \
