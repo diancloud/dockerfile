@@ -242,8 +242,8 @@ RUN cd /tmp  && \
 	# 下载编译安装XDebug 扩展
 	#
 	cd /tmp && \
-    wget -q "$DOWN/xdebug-2.4.1.tgz"  && \
-    tar xfz xdebug-2.4.1.tgz && \
+    wget -q "$DOWN/xdebug-2.6.0.tgz"  && \
+    tar xfz xdebug-2.6.0.tgz && \
     cd xdebug-2.4.1  && \
     /opt/php7/bin/phpize && \
     CFLAGS="-O3 -fPIC"  ./configure --enable-xdebug && \
