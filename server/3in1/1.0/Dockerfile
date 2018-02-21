@@ -239,6 +239,18 @@ RUN cd /tmp  && \
     echo ";imagick-ext" >>  /opt/php7/etc/php.ini && \
 	echo "extension=imagick.so" >>  /opt/php7/etc/php.ini && \
 	#
+	# 下载编译安装 Swoole
+	#
+	cd /tmp && \
+    wget -q "$DOWN/swoole-src-2.1.0.tar.gz"  && \
+    tar xfz swoole-src-2.1.0.tar.gz && \
+    cd swoole-src-2.1.0 && \
+    /opt/php7/bin/phpize && \
+    CFLAGS="-O3 -fPIC"  ./configure && \
+    CFLAGS="-O3 -fPIC" make && make install && \
+    echo ";Swoole" >>  /opt/php7/etc/php.ini && \
+	echo "extension=swoole.so" >>  /opt/php7/etc/php.ini && \
+	#
 	# 下载编译安装XDebug 扩展
 	#
 	cd /tmp && \
@@ -270,6 +282,11 @@ RUN cd /tmp  && \
 	mkdir -p /var/www/.config  && \
 	chown -R www-data:www-data /var/www/.config  && \
 	chmod -R 755 /node/lib/node_modules && \
+	#
+	# Fix Perl
+	#
+	mv /usr/bin/perl /usr/bin/perl.old && \
+	ln -s /usr/bin/perl5.22-x86_64-linux-gnu /usr/bin/perl && \
 	# 
 	# 清理无用文件
 	#
