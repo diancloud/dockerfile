@@ -261,7 +261,7 @@ RUN cd /tmp  && \
     CFLAGS="-O3 -fPIC"  ./configure --enable-xdebug && \
     CFLAGS="-O3 -fPIC"  make && make install && \
     echo ";xdebug-ext" >>  /opt/php7/etc/php.ini && \
-	echo "extension=xdebug.so" >>  /opt/php7/etc/php.ini && \
+	echo "zend_extension=xdebug.so" >>  /opt/php7/etc/php.ini && \
 	# 
 	# 添加WEB用户
 	# 
