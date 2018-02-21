@@ -248,7 +248,7 @@ RUN cd /tmp  && \
     /opt/php7/bin/phpize && \
     CFLAGS="-O3 -fPIC"  ./configure && \
     CFLAGS="-O3 -fPIC" make && make install && \
-    echo ";Swoole" >>  /opt/php7/etc/php.ini && \
+    echo ";swoole-ext" >>  /opt/php7/etc/php.ini && \
 	echo "extension=swoole.so" >>  /opt/php7/etc/php.ini && \
 	#
 	# 下载编译安装XDebug 扩展
