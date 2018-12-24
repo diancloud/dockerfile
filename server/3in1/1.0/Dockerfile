@@ -84,6 +84,9 @@ RUN cd /tmp  && \
 	apt-get install -y vim libreadline-dev libncurses5-dev libpcre3-dev \
 	ca-certificates  \
 	ffmpeg \
+    re2c \
+    bison \
+    apt-utils \
 	libxml2-dev wget perl make gcc g++  libxpm-dev \
 	automake autoconf libtool binutils \
 	libc-client2007e libc-client2007e-dev libkrb5-dev \
@@ -91,7 +94,8 @@ RUN cd /tmp  && \
     libcurl4-openssl-dev libgnutls-dev libssl-dev perl make build-essential  \
     libxrender1 libxtst6 libxi6 libnss3 libxss1 libatk-bridge2.0-0 libgtk-3-0 \
     libmcrypt-dev bash  bzip2  libpng-dev libbz2-dev libfreetype6-dev libwebp-dev libjpeg-dev gettext \
-    libzip-dev && \
+    libzip-dev \
+    zip && \
 	# 
 	# 编译环境 下载工具
 	# 
@@ -131,8 +135,8 @@ RUN cd /tmp  && \
     #
     # 下载编译安装 REDIS 
     #
-    wget -q "$DOWN/redis-3.2.2.tar.gz"  && \
-    tar xfz redis-3.2.2.tar.gz  && \
+    wget -q "$DOWN/redis-4.2.0.tar.gz"  && \
+    tar xfz redis-4.2.0.tar.gz  && \
     cd redis-3.2.2 && \
     make MALLOC=libc && \
     make install && \
