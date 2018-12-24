@@ -63,9 +63,8 @@
 #  	  
 # ===========================================
 
-#FROM tuanduimao/alpine:latest
 FROM tuanduimao/ubuntu:16.04
-MAINTAINER diancloud.com <dev@diancloud.com>
+MAINTAINER  Max <max@diancloud.com>
 
 VOLUME ["/run","/data", "/code", "/logs", "/config"]
 ENV PATH=${PATH}:/opt/php7/bin:/opt/php7/sbin:/opt/openresty/bin:/opt/openresty/nginx/sbin:/node/bin \
@@ -137,6 +136,15 @@ RUN cd /tmp  && \
     make MALLOC=libc && \
     make install && \
     #
+    # 下载编译安装 libxdiff
+    #
+    wget -q "$DOWN/libxdiff-0.22.tar.gz"  && \
+    tar xfz libxdiff-0.22.tar.gz && \
+    cd libxdiff-0.22 && \
+    ./configure  && \
+    make && \
+    make install && \
+    #
     # 安装 MySQL 
     # 
     # /etc/mysql/mariadb.conf.d
@@ -148,7 +156,7 @@ RUN cd /tmp  && \
     # 下载编译安装 PHP7
     # 
     cd /tmp && \
-    wget -q "$DOWN/php-7.0.9.tar.gz"  && \
+    wget -q "$DOWN/php-7.3.0.tar.gz"  && \
     tar xfz php-7.0.9.tar.gz && \
     cd php-7.0.9  && \
     CFLAGS="-O3 -fPIC" ./configure --prefix=/opt/php7 \
@@ -204,16 +212,6 @@ RUN cd /tmp  && \
 	make && make install && \
 	cp /tmp/php-7.0.9/php.ini-production  /opt/php7/etc/php.ini && \
 	#
-	# Load zend_extension=ioncube_loader_lin_7.0.so
-	#
-	echo ";ioncube_loader" >>  /opt/php7/etc/php.ini && \
-	echo "zend_extension=ioncube_loader_lin_7.0.so" >>  /opt/php7/etc/php.ini && \
-	#
-	# 
-	#
-	echo ";opcache-ext" >>  /opt/php7/etc/php.ini && \
-	echo "zend_extension=opcache.so" >>  /opt/php7/etc/php.ini && \
-	#
 	# 下载编译安装Redis 扩展
 	#
 	cd /tmp && \
@@ -262,6 +260,16 @@ RUN cd /tmp  && \
     CFLAGS="-O3 -fPIC"  make && make install && \
     echo ";xdebug-ext" >>  /opt/php7/etc/php.ini && \
 	echo "zend_extension=xdebug.so" >>  /opt/php7/etc/php.ini && \
+    #
+    # 下载编译安装Xdiff扩展
+    #
+    cd /tmp && \
+    wget -q "$DOWN/xdiff-2.0.1.tgz"  && \
+    tar xfz xdiff-2.0.1.tgz && \
+    cd xdiff-2.0.1 && \
+    /opt/php7/bin/phpize && \
+    CFLAGS="-O3 -fPIC"  ./configure  && \
+    CFLAGS="-O3 -fPIC"   make &&  make install && \
 	# 
 	# 添加WEB用户
 	# 
