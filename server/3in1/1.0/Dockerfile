@@ -135,9 +135,9 @@ RUN cd /tmp  && \
     #
     # 下载编译安装 REDIS 
     #
-    wget -q "$DOWN/redis-4.2.0.tgz"  && \
-    tar xfz redis-4.2.0.tgz  && \
-    cd redis-4.2.0 && \
+    wget -q "$DOWN/redis-5.0.3.tar.gz"  && \
+    tar xfz redis-5.0.3.tar.gz  && \
+    cd redis-5.0.3 && \
     make MALLOC=libc && \
     make install && \
     #
@@ -216,9 +216,9 @@ RUN cd /tmp  && \
 	# 下载编译安装Redis 扩展
 	#
 	cd /tmp && \
-    wget -q "$DOWN/phpredis-3.0.0.tar.gz"  && \
-    tar xfz phpredis-3.0.0.tar.gz && \
-    cd phpredis-3.0.0  && \
+    wget -q "$DOWN/phpredis-4.2.0.tgz"  && \
+    tar xfz phpredis-4.2.0.tgz && \
+    cd phpredis-4.2.0  && \
     /opt/php7/bin/phpize && \
     CFLAGS="-O3 -fPIC"  ./configure && \
     CFLAGS="-O3 -fPIC" make && make install && \
