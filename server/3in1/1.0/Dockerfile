@@ -135,9 +135,9 @@ RUN cd /tmp  && \
     #
     # 下载编译安装 REDIS 
     #
-    wget -q "$DOWN/redis-4.2.0.tar.gz"  && \
-    tar xfz redis-4.2.0.tar.gz  && \
-    cd redis-3.2.2 && \
+    wget -q "$DOWN/redis-4.2.0.tgz"  && \
+    tar xfz redis-4.2.0.tgz  && \
+    cd redis-4.2.0 && \
     make MALLOC=libc && \
     make install && \
     #
