@@ -90,7 +90,7 @@ RUN cd /tmp  && \
 	libmagickwand-dev \
     libcurl4-openssl-dev libgnutls-dev libssl-dev perl make build-essential  \
     libxrender1 libxtst6 libxi6 libnss3 libxss1 libatk-bridge2.0-0 libgtk-3-0 \
-    libmcrypt-dev bash  bzip2  libpng-dev libbz2-dev libfreetype6-dev libwebp-dev libjpeg-dev gettext  && \
+    libmcrypt-dev bash  bzip2  libpng-dev libbz2-dev libfreetype6-dev libwebp-dev libjpeg-dev gettext \
     libzip-dev && \
 	# 
 	# 编译环境 下载工具
