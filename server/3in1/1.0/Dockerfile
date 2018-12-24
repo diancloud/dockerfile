@@ -218,7 +218,7 @@ RUN cd /tmp  && \
 	cd /tmp && \
     wget -q "$DOWN/phpredis-4.2.0.tgz"  && \
     tar xfz phpredis-4.2.0.tgz && \
-    cd phpredis-4.2.0  && \
+    cd redis-4.2.0  && \
     /opt/php7/bin/phpize && \
     CFLAGS="-O3 -fPIC"  ./configure && \
     CFLAGS="-O3 -fPIC" make && make install && \
