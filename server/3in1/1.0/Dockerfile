@@ -1,11 +1,11 @@
 ## ===========================================
 #  XpmSE DockerFile 
 #  
-#  Openresty 1.13.6.1 + PHP 7.0.9
+#  Openresty 1.13.6.1 + PHP 7.3.0
 #  升级 HttpServer 支持 Http2
 #  
 #  @Name xpmse/server:3in1
-#  @Ver  1.13.6.1 PHP 7.0.9
+#  @Ver  1.13.6.1 PHP 7.3.0
 #  @By Weiping <weiping@diancloud.com>
 #  
 
@@ -157,8 +157,8 @@ RUN cd /tmp  && \
     # 
     cd /tmp && \
     wget -q "$DOWN/php-7.3.0.tar.gz"  && \
-    tar xfz php-7.0.9.tar.gz && \
-    cd php-7.0.9  && \
+    tar xfz php-7.3.0.tar.gz && \
+    cd php-7.3.0  && \
     CFLAGS="-O3 -fPIC" ./configure --prefix=/opt/php7 \
 	--with-config-file-path=/opt/php7/etc \
 	--enable-fpm \
@@ -210,7 +210,7 @@ RUN cd /tmp  && \
 	--enable-opcache \
 	--disable-rpath && \
 	make && make install && \
-	cp /tmp/php-7.0.9/php.ini-production  /opt/php7/etc/php.ini && \
+	cp /tmp/php-7.3.0/php.ini-production  /opt/php7/etc/php.ini && \
 	#
 	# 下载编译安装Redis 扩展
 	#
@@ -313,6 +313,6 @@ RUN cd /tmp  && \
 
 	echo "Complete"
 
-ADD extension/ioncube_loader_lin_7.0.so /opt/php7/lib/php/extensions/no-debug-non-zts-20151012/ioncube_loader_lin_7.0.so
+#ADD extension/ioncube_loader_lin_7.0.so /opt/php7/lib/php/extensions/no-debug-non-zts-20151012/ioncube_loader_lin_7.0.so
 EXPOSE 80 443 6379 3306
 CMD ["sh", "/start.sh"]
