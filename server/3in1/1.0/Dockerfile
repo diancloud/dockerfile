@@ -91,6 +91,7 @@ RUN cd /tmp  && \
     libcurl4-openssl-dev libgnutls-dev libssl-dev perl make build-essential  \
     libxrender1 libxtst6 libxi6 libnss3 libxss1 libatk-bridge2.0-0 libgtk-3-0 \
     libmcrypt-dev bash  bzip2  libpng-dev libbz2-dev libfreetype6-dev libwebp-dev libjpeg-dev gettext  && \
+    libzip-dev && \
 	# 
 	# 编译环境 下载工具
 	# 
@@ -171,9 +172,8 @@ RUN cd /tmp  && \
 	--with-libxml-dir=/usr \
 	--with-zlib \
 	--with-gd \
-	--with-jpeg-dir=/usr --with-png-dir=/usr --with-webp-dir=/usr  --with-xpm-dir=/usr --enable-gd-native-ttf \
+	--with-jpeg-dir=/usr --with-png-dir=/usr --with-webp-dir=/usr  --with-xpm-dir=/usr \
 	--with-curl \
-	--with-mcrypt \
 	--with-readline \
 	--with-openssl \
 	--with-xmlrpc \
@@ -198,15 +198,12 @@ RUN cd /tmp  && \
 	--enable-sysvsem \
 	--enable-sysvmsg \
 	--enable-inline-optimization \
-	--enable-gd-native-ttf \
 	--enable-mbregex \
 	--enable-mbstring \
 	--enable-pcntl \
 	--enable-sockets \
-	--enable-gd-native-ttf \
 	--enable-zip \
 	--enable-soap \
-	--enable-apcu-bc \
 	--enable-opcache \
 	--disable-rpath && \
 	make && make install && \
@@ -270,6 +267,44 @@ RUN cd /tmp  && \
     /opt/php7/bin/phpize && \
     CFLAGS="-O3 -fPIC"  ./configure  && \
     CFLAGS="-O3 -fPIC"   make &&  make install && \
+    echo ";xdiff-ext" >>  /opt/php7/etc/php.ini && \
+	echo "extension=xdiff.so" >>  /opt/php7/etc/php.ini && \
+    #
+    # 下载编译安装Mcrypt扩展
+    #
+    cd /tmp && \
+    wget -q "$DOWN/mcrypt-1.0.1.tgz"  && \
+    tar xfz mcrypt-1.0.1.tgz && \
+    cd mcrypt-1.0.1 && \
+    /opt/php7/bin/phpize && \
+    CFLAGS="-O3 -fPIC"  ./configure  && \
+    CFLAGS="-O3 -fPIC"   make &&  make install && \
+    echo ";mcrypt-ext" >>  /opt/php7/etc/php.ini && \
+	echo "extension=mcrypt.so" >>  /opt/php7/etc/php.ini && \
+    #
+    # 下载编译安装Apcu扩展
+    #
+    cd /tmp && \
+    wget -q "$DOWN/apcu-5.1.16.tgz"  && \
+    tar xfz apcu-5.1.16.tgz && \
+    cd apcu-5.1.16 && \
+    /opt/php7/bin/phpize && \
+    CFLAGS="-O3 -fPIC"  ./configure  && \
+    CFLAGS="-O3 -fPIC"   make &&  make install && \
+    echo ";apcu-ext" >>  /opt/php7/etc/php.ini && \
+	echo "extension=apcu.so" >>  /opt/php7/etc/php.ini && \
+    #
+    # 下载编译安装Apcu_bc扩展
+    #
+    cd /tmp && \
+    wget -q "$DOWN/apcu_bc-1.0.4.tgz"  && \
+    tar xfz apcu_bc-1.0.4.tgz && \
+    cd apcu_bc-1.0.4 && \
+    /opt/php7/bin/phpize && \
+    CFLAGS="-O3 -fPIC"  ./configure  && \
+    CFLAGS="-O3 -fPIC"   make &&  make install && \
+    echo ";apc-ext" >>  /opt/php7/etc/php.ini && \
+	echo "extension=apc.so" >>  /opt/php7/etc/php.ini && \
 	# 
 	# 添加WEB用户
 	# 
