@@ -64,7 +64,7 @@
 # ===========================================
 
 FROM tuanduimao/ubuntu:16.04
-MAINTAINER  Max <max@diancloud.com>
+LABEL maintainer="Max <max@diancloud.com>"
 
 VOLUME ["/run","/data", "/code", "/logs", "/config"]
 ENV PATH=${PATH}:/opt/php7/bin:/opt/php7/sbin:/opt/openresty/bin:/opt/openresty/nginx/sbin:/node/bin \
@@ -310,7 +310,6 @@ RUN cd /tmp  && \
     #   /var/lib/* \
     #   /opt/php7/bin/phpdbg \
     #   /opt/php7/bin/php-cgi && \
-
 	echo "Complete"
 
 #ADD extension/ioncube_loader_lin_7.0.so /opt/php7/lib/php/extensions/no-debug-non-zts-20151012/ioncube_loader_lin_7.0.so
