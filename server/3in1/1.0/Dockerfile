@@ -1,11 +1,11 @@
 ## ===========================================
 #  XpmSE DockerFile 
 #  
-#  Openresty 1.13.6.1 + PHP 7.3.0
+#  Openresty 1.13.6.1 + PHP 7.1.16
 #  升级 HttpServer 支持 Http2
 #  
 #  @Name xpmse/server:3in1
-#  @Ver  1.13.6.1 PHP 7.3.0
+#  @Ver  1.13.6.1 PHP 7.1.26
 #  @By Weiping <weiping@diancloud.com>
 #  
 
@@ -161,9 +161,9 @@ RUN cd /tmp  && \
     # 下载编译安装 PHP7
     # 
     cd /tmp && \
-    wget -q "$DOWN/php-7.3.0.tar.gz"  && \
-    tar xfz php-7.3.0.tar.gz && \
-    cd php-7.3.0  && \
+    wget -q "$DOWN/php-7.1.26.tar.gz"  && \
+    tar xfz php-7.1.26.tar.gz && \
+    cd php-7.1.26  && \
     CFLAGS="-O3 -fPIC" ./configure --prefix=/opt/php7 \
 	--with-config-file-path=/opt/php7/etc \
 	--enable-fpm \
@@ -211,7 +211,7 @@ RUN cd /tmp  && \
 	--enable-opcache \
 	--disable-rpath && \
 	make && make install && \
-	cp /tmp/php-7.3.0/php.ini-production  /opt/php7/etc/php.ini && \
+	cp /tmp/php-7.1.26/php.ini-production  /opt/php7/etc/php.ini && \
 	#
 	# 下载编译安装Redis 扩展
 	#
