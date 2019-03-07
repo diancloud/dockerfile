@@ -321,8 +321,8 @@ RUN cd /tmp  && \
 	wget https://nodejs.org/dist/v8.9.4/node-v8.9.4-linux-x64.tar.xz  && \
 	tar xvf  node-v8.9.4-linux-x64.tar.xz  && \
 	mv node-v8.9.4-linux-x64  /node && \
-	npm install -g cnpm --registry=https://registry.npm.taobao.org  && \
-	cnpm install puppeteer --global && \
+	# npm install -g cnpm --registry=https://registry.npm.taobao.org  && \
+	npm install puppeteer --global && \
 	#
 	# 权限
 	#
