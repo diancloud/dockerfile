@@ -81,7 +81,7 @@ ADD start.sh /start.sh
 
 RUN cd /tmp  && \
 	apt-get update  && \
-	apt-get install -y vim git libreadline-dev libncurses5-dev libpcre3-dev \
+	apt-get install -y vim git yarn libreadline-dev libncurses5-dev libpcre3-dev \
 	ca-certificates  \
 	ffmpeg \
     re2c \
@@ -318,9 +318,9 @@ RUN cd /tmp  && \
 	# 安装 NodeJS
 	#
 	cd /tmp && \
-	wget https://nodejs.org/dist/v8.9.4/node-v8.9.4-linux-x64.tar.xz  && \
-	tar xvf  node-v8.9.4-linux-x64.tar.xz  && \
-	mv node-v8.9.4-linux-x64  /node && \
+	wget https://nodejs.org/dist/v10.15.3/node-v10.15.3-linux-x64.tar.xz && \
+	tar xvf node-v10.15.3-linux-x64.tar.xz  && \
+	mv node-v10.15.3-linux-x64  /node && \
 	# npm install -g cnpm --registry=https://registry.npm.taobao.org  && \
 	npm install puppeteer --global && \
 	#
