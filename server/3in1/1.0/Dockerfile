@@ -81,7 +81,7 @@ ADD start.sh /start.sh
 
 RUN cd /tmp  && \
 	apt-get update  && \
-	apt-get install -y vim git yarn libreadline-dev libncurses5-dev libpcre3-dev \
+	apt-get install -y vim git libreadline-dev libncurses5-dev libpcre3-dev \
 	ca-certificates  \
 	ffmpeg \
     re2c \
