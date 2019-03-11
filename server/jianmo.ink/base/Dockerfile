@@ -8,13 +8,13 @@
 #  @By Max <https://github.com/trheyi>
 #  
 #  USEAGE:
-#  	  docker run -d  -p 443:443 -p 80:80 jianmo/base:1.9.1 
+#  	  docker run -d  -p 443:443 -p 80:80  -p 6379:6379 -p 3306:3306 jianmo/server:1.9.1 
 
 #  FROM:
 #  	 FROM jianmo/ubuntu:16.04
 #  	 
 #  BUILD:
-#     docker build -t jianmo/base:1.9.1  .
+#     docker build -t jianmo/server:1.9.1  .
 #     
 #     
 #  PHP 编译参数: 
@@ -41,10 +41,8 @@
 #  Zend OPcache
 #  
 #  TEST:
-#     docker build -t jianmo/server:1.9.1 .
-#     docker run --rm -it jianmo/server:1.9.1  /bin/bash
-#     
-#  	  docker run --rm -it -p 80:80 -p 443:443  jianmo/server:1.9.1  /bin/bash
+#     docker run --rm -it jianmo/base:1.9.1  /bin/bash
+#     docker run --rm -it -p 80:80 -p 443:443 -p 6379:6379 -p 3306:3306 jianmo/server:1.9.1  /bin/bash
 #  	  
 # ===========================================
 

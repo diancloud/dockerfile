@@ -67,7 +67,12 @@ fi
 # 检查 MySQL 用户组
 ug=$(ls -l  /data/mysql/db | awk '{print $3":"$4}')
 if [ "$ug" != "mysql:mysql" ]; then
-	chown -R mysql:mysql /data/mysql/db
+	chown -R mysql:mysql /data/mysql/db /var/run/mysqld
+fi
+
+ug=$(ls -l /var/lib/mysql | awk '{print $3":"$4}')
+if [ "$ug" != "mysql:mysql" ]; then
+	chown -R mysql:mysql /var/lib/mysql /var/run/mysqld
 fi
 
 /usr/bin/mysqld_safe --defaults-file=/config/mysql/my.cnf >> $LOG 2>&1 &
