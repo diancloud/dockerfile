@@ -22,7 +22,7 @@
 #  	 FROM tuanduimao/ubuntu:16.04
 #  	 
 #  BUILD:
-#     docker build -t jianmo.ink/3in1-base:1.9.1  .
+#     docker build -t jianmo.ink/base:1.9.1  .
 #     
 #     
 #  PHP 编译参数: 
@@ -64,9 +64,9 @@
 # ===========================================
 
 FROM jianmo.ink/ubuntu:16.04
-LABEL maintainer="Max <max@diancloud.com>"
+LABEL maintainer="Max <https://github.com/trheyi>"
 
-VOLUME ["/run","/data", "/code", "/logs", "/config"]
+# VOLUME ["/run","/data", "/code", "/logs", "/config", "/apps"]
 ENV PATH=${PATH}:/opt/php7/bin:/opt/php7/sbin:/opt/openresty/bin:/opt/openresty/nginx/sbin:/node/bin \
 	CONF=default \
 	USER=www-data \
@@ -88,8 +88,9 @@ RUN cd /tmp  && \
     bison \
     apt-utils \
     debconf-utils \
+    iputils-ping \
     xz-utils \
-	libxml2-dev wget perl make gcc g++  libxpm-dev \
+	libxml2-dev wget perl make gcc g++  libxpm-dev libyaml-dev net-tools \
 	automake autoconf libtool binutils \
 	libc-client2007e libc-client2007e-dev libkrb5-dev \
 	libmagickwand-dev \
@@ -313,6 +314,18 @@ RUN cd /tmp  && \
     CFLAGS="-O3 -fPIC"   make &&  make install && \
     echo ";apc-ext" >>  /opt/php7/etc/php.ini && \
 	echo "extension=apc.so" >>  /opt/php7/etc/php.ini && \
+    #
+    # 下载编译安装Yaml扩展
+    #
+    cd /tmp && \
+    wget -q "$DOWN/yaml-2.0.4.tgz"  && \
+    tar xfz yaml-2.0.4.tgz && \
+    cd yaml-2.0.4 && \
+    /opt/php7/bin/phpize && \
+    CFLAGS="-O3 -fPIC"  ./configure  && \
+    CFLAGS="-O3 -fPIC"   make &&  make install && \
+    echo ";yaml-ext" >>  /opt/php7/etc/php.ini && \
+	echo "extension=yaml.so" >>  /opt/php7/etc/php.ini && \
 	# 
 	# 添加WEB用户
 	# 
