@@ -3,9 +3,9 @@
 #  
 #  Linux ubuntu  
 #  
-#  @Name tuanduimao/ubuntu:16.04
+#  @Name jianmo/ubuntu:16.04
 #  @Ver  3.4
-#  @By Weiping <weiping@diancloud.com>
+#  @By Max <https://github.com/trheyi>
 #  
 #  
 #  USEAGE:
@@ -21,6 +21,6 @@
 # ===========================================
 
 FROM ubuntu:16.04
-LABEL maintainer="Max <https://github.com/trheyi>"
+LABEL maintainer="JianMo <https://www.JianMo.ink>"
 ADD Shanghai /etc/localtime
 RUN echo "Asia/Shanghai" > /etc/timezone

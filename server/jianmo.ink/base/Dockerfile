@@ -1,28 +1,20 @@
 ## ===========================================
-#  XpmSE DockerFile 
+#  Jianmo.ink DockerFile 
 #  
-#  Openresty 1.13.6.1 + PHP 7.1.16
-#  升级 HttpServer 支持 Http2
+#  Openresty 1.13.6.1 + PHP 7.1.16 
 #  
-#  @Name xpmse/server:3in1
+#  @Name jianmo/base:1.9.1
 #  @Ver  1.13.6.1 PHP 7.1.26
-#  @By Weiping <weiping@diancloud.com>
+#  @By Max <https://github.com/trheyi>
 #  
-
 #  USEAGE:
-#  	  docker run -d \
-#		 -v /host/logs:/logs  \
-#		 -v /host/data:/data  \
-#		 -v /host/config:/config  \
-#		 -v /host/code:/code  \
-#		 -p 85:80 \
-#		 xpmse/server:3in1
-#  	 
+#  	  docker run -d  -p 443:443 -p 80:80 jianmo/base:1.9.1 
+
 #  FROM:
-#  	 FROM tuanduimao/ubuntu:16.04
+#  	 FROM jianmo/ubuntu:16.04
 #  	 
 #  BUILD:
-#     docker build -t jianmo.ink/base:1.9.1  .
+#     docker build -t jianmo/base:1.9.1  .
 #     
 #     
 #  PHP 编译参数: 
@@ -57,7 +49,7 @@
 # ===========================================
 
 FROM jianmo/ubuntu:16.04
-LABEL maintainer="Max <https://github.com/trheyi>"
+LABEL maintainer="JianMo <https://www.JianMo.ink>"
 
 # VOLUME ["/run","/data", "/code", "/logs", "/config", "/apps"]
 ENV PATH=${PATH}:/opt/php7/bin:/opt/php7/sbin:/opt/openresty/bin:/opt/openresty/nginx/sbin:/node/bin \
@@ -65,7 +57,6 @@ ENV PATH=${PATH}:/opt/php7/bin:/opt/php7/sbin:/opt/openresty/bin:/opt/openresty/
 	USER=www-data \
 	GROUP=www-data
 
-# ADD sources.list /etc/apt/sources.list
 ADD config /defaults
 ADD start.mysql.sh /start/mysql.sh
 ADD start.redis.sh /start/redis.sh
