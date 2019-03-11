@@ -3,18 +3,18 @@
 #  
 #  Openresty 1.13.6.1 + PHP 7.1.16 
 #  
-#  @Name jianmo/server:default
+#  @Name jianmo/server:runtime
 #  @Ver  1.13.6.1 PHP 7.1.26
 #  @By Max <https://github.com/trheyi>
 #  
 #  USEAGE:
-#  	  docker run -d  -p 443:443 -p 80:80  -p 6379:6379 -p 3306:3306 jianmo/server:default 
+#  	  docker run -d  -p 443:443 -p 80:80  -p 6379:6379 -p 3306:3306 jianmo/server:runtime 
 
 #  FROM:
 #  	 FROM jianmo/ubuntu:16.04
 #  	 
 #  BUILD:
-#     docker build -t jianmo/server:default  .
+#     docker build -t jianmo/server:runtime  .
 #     
 #     
 #  PHP 编译参数: 
@@ -41,8 +41,8 @@
 #  Zend OPcache
 #  
 #  TEST:
-#     docker run --rm -it jianmo/server:default  /bin/bash
-#     docker run --rm -it -p 80:80 -p 443:443 -p 6379:6379 -p 3306:3306 jianmo/server:default  /bin/bash
+#     docker run --rm -it jianmo/server:runtime  /bin/bash
+#     docker run --rm -it -p 80:80 -p 443:443 -p 6379:6379 -p 3306:3306 jianmo/server:runtime  /bin/bash
 #  	  
 # ===========================================
 
