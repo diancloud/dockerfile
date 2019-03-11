@@ -43,27 +43,20 @@
 #  gettext、 hash、 iconv、 json、 libxml、 mbstring、 mcrypt、 mysqli、 mysqlnd、 openssl、 pcntl、 pcre、 
 #  PDO、 pdo_mysql、 pdo_sqlite、 Phar、 posix、 readline、 redis、 Reflection、 session、 shmop、 SimpleXML、 
 #  soap、 sockets、 SPL、 sqlite3、 standard、 sysvmsg、 sysvsem、 sysvshm、 tokenizer、 wddx、 xml、 
-#  xmlreader、 xmlrpc、 xmlwriter、 Zend OPcache、 zip、 zlib
+#  xmlreader、 xmlrpc、 xmlwriter、 Zend OPcache、 zip、 zlib yaml xdiff
 #  
 #  [Zend Modules]
 #  Zend OPcache
 #  
 #  TEST:
-#     docker build -t jianmo.ink/server:1.9.1 .
-#     docker run --rm -it jianmo.ink/server:1.9.1  /bin/sh
+#     docker build -t jianmo/server:1.9.1 .
+#     docker run --rm -it jianmo/server:1.9.1  /bin/bash
 #     
-#     
-#  	  docker run --rm -it  \
-#  	  		 -v /home/vagrant/test/http/logs:/logs  \
-#  	  		 -v /home/vagrant/test/http/data:/data  \
-#  	  		 -v /home/vagrant/test/http/config:/config  \
-#  	  		 -v /home/vagrant/test/http/code:/code  \
-#  	  		 -p 85:80 \
-#  	  		 xpmse/server:3in1  /bin/sh
+#  	  docker run --rm -it -p 80:80 -p 443:443  jianmo/server:1.9.1  /bin/bash
 #  	  
 # ===========================================
 
-FROM jianmo.ink/ubuntu:16.04
+FROM jianmo/ubuntu:16.04
 LABEL maintainer="Max <https://github.com/trheyi>"
 
 # VOLUME ["/run","/data", "/code", "/logs", "/config", "/apps"]
@@ -368,6 +361,5 @@ RUN cd /tmp  && \
     #   /opt/php7/bin/php-cgi && \
 	echo "Complete"
 
-#ADD extension/ioncube_loader_lin_7.0.so /opt/php7/lib/php/extensions/no-debug-non-zts-20151012/ioncube_loader_lin_7.0.so
 EXPOSE 80 443 6379 3306
 CMD ["sh", "/start.sh"]

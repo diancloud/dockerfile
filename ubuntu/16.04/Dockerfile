@@ -9,18 +9,18 @@
 #  
 #  
 #  USEAGE:
-#  	 docker pull tuanduimao/ubuntu:16.04
+#  	 docker pull jianmo/ubuntu:16.04
 #  	 
 #  FROM:
-#  	 FROM tuanduimao/ubuntu:16.04
+#  	 FROM ubuntu:16.04
 #  	 
 #  BUILD:
-#     docker build -t tuanduimao/ubuntu:16.04 -t tuanduimao/ubuntu:latest .
+#     docker build -t jianmo/ubuntu:16.04 -t jianmo/ubuntu:latest .
 #     
 #  
 # ===========================================
 
 FROM ubuntu:16.04
-MAINTAINER diancloud.com <dev@diancloud.com>
+LABEL maintainer="Max <https://github.com/trheyi>"
 ADD Shanghai /etc/localtime
 RUN echo "Asia/Shanghai" > /etc/timezone
