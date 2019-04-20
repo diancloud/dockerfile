@@ -41,8 +41,8 @@
 #  Zend OPcache
 #  
 #  TEST:
-#     docker run --rm -it jianmo/base:1.9.1  /bin/bash
-#     docker run --rm -it -p 80:80 -p 443:443 -p 6379:6379 -p 3306:3306 jianmo/base:1.9.1  /bin/bash
+#     docker run --rm -it jianmo/base:1.9.2  /bin/bash
+#     docker run --rm -it -p 80:80 -p 443:443 -p 6379:6379 -p 3306:3306 jianmo/base:1.9.2  /bin/bash
 #  	  
 # ===========================================
 
