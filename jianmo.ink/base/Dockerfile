@@ -203,11 +203,11 @@ RUN cd /tmp  && \
 	# 下载编译安装Redis 扩展
 	#
 	cd /tmp && \
-    wget -q "$DOWN/phpredis-4.3.0.tgz"  && \
-    tar xfz phpredis-4.3.0.tgz && \
-    cd redis-4.3.0  && \
+    wget -q "$DOWN/phpredis-4.3.0.tar.gz"  && \
+    tar xfz phpredis-4.3.0.tar.gz && \
+    cd phpredis-4.3.0  && \
     /opt/php7/bin/phpize && \
-    CFLAGS="-O3 -fPIC"  ./configure && \
+    CFLAGS="-O3 -fPIC"  ./configure --with-php-config=/opt/php7/bin/php-config && \
     CFLAGS="-O3 -fPIC" make && make install && \
     echo ";redis-ext" >>  /opt/php7/etc/php.ini && \
 	echo "extension=redis.so" >>  /opt/php7/etc/php.ini && \
