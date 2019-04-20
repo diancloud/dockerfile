@@ -14,7 +14,7 @@
 #  	 FROM jianmo/ubuntu:16.04
 #  	 
 #  BUILD:
-#     docker build -t jianmo/base:1.9.1  .
+#     docker build -t jianmo/base:1.9.2  .
 #     
 #     
 #  PHP 编译参数: 
