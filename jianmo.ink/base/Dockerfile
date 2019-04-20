@@ -4,7 +4,7 @@
 #  Openresty 1.13.6.1 + PHP 7.1.16 
 #  
 #  @Name jianmo/base:1.9.1
-#  @Ver  1.13.6.1 PHP 7.1.28
+#  @Ver  1.13.6.1 PHP 7.1.26
 #  @By Max <https://github.com/trheyi>
 #  
 #  USEAGE:
@@ -148,9 +148,9 @@ RUN cd /tmp  && \
     # 下载编译安装 PHP7
     # 
     cd /tmp && \
-    wget -q "$DOWN/php-7.1.28.tar.gz"  && \
-    tar xfz php-7.1.28.tar.gz && \
-    cd php-7.1.28  && \
+    wget -q "$DOWN/php-7.1.26.tar.gz"  && \
+    tar xfz php-7.1.26.tar.gz && \
+    cd php-7.1.26  && \
     CFLAGS="-O3 -fPIC" ./configure --prefix=/opt/php7 \
 	--with-config-file-path=/opt/php7/etc \
 	--enable-fpm \
@@ -198,7 +198,7 @@ RUN cd /tmp  && \
 	--enable-opcache \
 	--disable-rpath && \
 	make && make install && \
-	cp /tmp/php-7.1.28/php.ini-production  /opt/php7/etc/php.ini && \
+	cp /tmp/php-7.1.26/php.ini-production  /opt/php7/etc/php.ini && \
 	#
 	# 下载编译安装Redis 扩展
 	#
