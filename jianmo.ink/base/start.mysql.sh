@@ -56,6 +56,8 @@ fi
 
 if [ ! -f "/config/mysql/my.cnf" ]; then
 	cp -r "/defaults/mysql/$CONF/my.cnf" /config/mysql/
+    cp -r "/defaults/mysql/$CONF/mysql.conf.d" /config/mysql/
+    cp -r "/defaults/mysql/$CONF/conf.d" /config/mysql/
 fi
 
 # 检查数据目录
