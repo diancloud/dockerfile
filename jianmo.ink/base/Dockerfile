@@ -4,7 +4,7 @@
 #  Openresty 1.13.6.1 + PHP 7.1.16 
 #  
 #  @Name jianmo/base:1.9.1
-#  @Ver  1.13.6.1 PHP 7.1.26
+#  @Ver  1.13.6.1 PHP 7.1.28
 #  @By Max <https://github.com/trheyi>
 #  
 #  USEAGE:
@@ -120,9 +120,9 @@ RUN cd /tmp  && \
     #
     # 下载编译安装 REDIS 
     #
-    wget -q "$DOWN/redis-5.0.3.tar.gz"  && \
-    tar xfz redis-5.0.3.tar.gz  && \
-    cd redis-5.0.3 && \
+    wget -q "$DOWN/redis-5.0.4.tar.gz"  && \
+    tar xfz redis-5.0.4.tar.gz  && \
+    cd redis-5.0.4 && \
     make MALLOC=libc && \
     make install && \
     #
@@ -148,9 +148,9 @@ RUN cd /tmp  && \
     # 下载编译安装 PHP7
     # 
     cd /tmp && \
-    wget -q "$DOWN/php-7.1.26.tar.gz"  && \
-    tar xfz php-7.1.26.tar.gz && \
-    cd php-7.1.26  && \
+    wget -q "$DOWN/php-7.1.28.tar.gz"  && \
+    tar xfz php-7.1.28.tar.gz && \
+    cd php-7.1.28  && \
     CFLAGS="-O3 -fPIC" ./configure --prefix=/opt/php7 \
 	--with-config-file-path=/opt/php7/etc \
 	--enable-fpm \
@@ -198,14 +198,14 @@ RUN cd /tmp  && \
 	--enable-opcache \
 	--disable-rpath && \
 	make && make install && \
-	cp /tmp/php-7.1.26/php.ini-production  /opt/php7/etc/php.ini && \
+	cp /tmp/php-7.1.28/php.ini-production  /opt/php7/etc/php.ini && \
 	#
 	# 下载编译安装Redis 扩展
 	#
 	cd /tmp && \
-    wget -q "$DOWN/phpredis-4.2.0.tgz"  && \
-    tar xfz phpredis-4.2.0.tgz && \
-    cd redis-4.2.0  && \
+    wget -q "$DOWN/phpredis-4.3.0.tgz"  && \
+    tar xfz phpredis-4.3.0.tgz && \
+    cd redis-4.3.0  && \
     /opt/php7/bin/phpize && \
     CFLAGS="-O3 -fPIC"  ./configure && \
     CFLAGS="-O3 -fPIC" make && make install && \
