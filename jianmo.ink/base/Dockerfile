@@ -232,7 +232,7 @@ RUN cd /tmp  && \
     tar xfz swoole-src-4.4.5.tar.gz && \
     cd swoole-src-4.4.5 && \
     /opt/php7/bin/phpize && \
-    CFLAGS="-O3 -fPIC"  ./configure && \
+    CFLAGS="-O3 -fPIC"  ./configure --enable-openssl --enable-sockets --enable-http2 --enable-mysqlnd && \
     CFLAGS="-O3 -fPIC" make && make install && \
     echo ";swoole-ext" >>  /opt/php7/etc/php.ini && \
 	echo "extension=swoole.so" >>  /opt/php7/etc/php.ini && \
