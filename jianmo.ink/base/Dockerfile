@@ -228,9 +228,9 @@ RUN cd /tmp  && \
 	# 下载编译安装 Swoole
 	#
 	cd /tmp && \
-    wget -q "$DOWN/swoole-src-4.2.10.tar.gz"  && \
-    tar xfz swoole-src-4.2.10.tar.gz && \
-    cd swoole-src-4.2.10 && \
+    wget -q "$DOWN/swoole-src-4.4.5.tar.gz"  && \
+    tar xfz swoole-src-4.4.5.tar.gz && \
+    cd swoole-src-4.4.5 && \
     /opt/php7/bin/phpize && \
     CFLAGS="-O3 -fPIC"  ./configure && \
     CFLAGS="-O3 -fPIC" make && make install && \
