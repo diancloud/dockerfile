@@ -126,6 +126,14 @@ RUN cd /tmp  && \
     make MALLOC=libc && \
     make install && \
     #
+    # 下载编译安装 hiredis-0.14.0.tar 
+    #
+    wget -q "$DOWN/hiredis-0.14.0.tar.gz"  && \
+    tar xfz hiredis-0.14.0.tar.gz  && \
+    cd hiredis-0.14.0 && \
+    make && \
+    make install && \
+    #
     # 下载编译安装 libxdiff
     #
     wget -q "$DOWN/libxdiff-0.22.tar.gz"  && \
