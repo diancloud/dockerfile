@@ -8,13 +8,13 @@
 #  @By Max <https://github.com/trheyi>
 #  
 #  USEAGE:
-#  	  docker run -d  -p 443:443 -p 80:80  -p 6379:6379 -p 3306:3306 jianmo/base:1.9.1 
+#  	  docker run -d  -p 443:443 -p 80:80  -p 6379:6379 -p 3306:3306 jianmo/base:1.10.1
 
 #  FROM:
 #  	 FROM jianmo/ubuntu:16.04
 #  	 
 #  BUILD:
-#     docker build -t jianmo/base:1.9.2  .
+#     docker build -t jianmo/base:1.10.1 .
 #     
 #     
 #  PHP 编译参数: 
@@ -41,8 +41,8 @@
 #  Zend OPcache
 #  
 #  TEST:
-#     docker run --rm -it jianmo/base:1.9.2  /bin/bash
-#     docker run --rm -it -p 80:80 -p 443:443 -p 6379:6379 -p 3306:3306 jianmo/base:1.9.2  /bin/bash
+#     docker run --rm -it jianmo/base:1.10.1 /bin/bash
+#     docker run --rm -it -p 80:80 -p 443:443 -p 6379:6379 -p 3306:3306 jianmo/base:1.10.1  /bin/bash
 #  	  
 # ===========================================
 
@@ -206,6 +206,18 @@ RUN cd /tmp  && \
     wget -q "$DOWN/phpredis-4.3.0.tar.gz"  && \
     tar xfz phpredis-4.3.0.tar.gz && \
     cd phpredis-4.3.0  && \
+    /opt/php7/bin/phpize && \
+    CFLAGS="-O3 -fPIC"  ./configure --with-php-config=/opt/php7/bin/php-config && \
+    CFLAGS="-O3 -fPIC" make && make install && \
+    echo ";redis-ext" >>  /opt/php7/etc/php.ini && \
+	echo "extension=redis.so" >>  /opt/php7/etc/php.ini && \
+    #
+	# 下载编译安装Phpiredis 扩展
+	#
+	cd /tmp && \
+    wget -q "$DOWN/phpiredis-1.0.0.tar.gz"  && \
+    tar xfz phpiredis-1.0.0.tar.gz && \
+    cd phpiredis-1.0.0 && \
     /opt/php7/bin/phpize && \
     CFLAGS="-O3 -fPIC"  ./configure --with-php-config=/opt/php7/bin/php-config && \
     CFLAGS="-O3 -fPIC" make && make install && \
