@@ -8,7 +8,7 @@
 #  @By Max <https://github.com/trheyi>
 #  
 #  USEAGE:
-#  	  docker run -d  -p 443:443 -p 80:80  -p 6379:6379 -p 3306:3306 jianmo/base:1.10.1
+#  	  docker run -d  -p 443:443 -p 80:80  -p 6379:6379 -p 3306:3306 jianmo/base:1.2.1
 
 #  FROM:
 #  	 FROM jianmo/ubuntu:16.04
@@ -41,8 +41,8 @@
 #  Zend OPcache
 #  
 #  TEST:
-#     docker run --rm -it jianmo/base:1.10.1 /bin/bash
-#     docker run --rm -it -p 80:80 -p 443:443 -p 6379:6379 -p 3306:3306 jianmo/base:1.10.1  /bin/bash
+#     docker run --rm -it jianmo/base:1.2.1 /bin/bash
+#     docker run --rm -it -p 80:80 -p 443:443 -p 6379:6379 -p 3306:3306 jianmo/base:1.2.1  /bin/bash
 #  	  
 # ===========================================
 
