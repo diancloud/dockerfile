@@ -341,7 +341,7 @@ RUN cd /tmp  && \
 	tar xvf node-v10.16.3-linux-x64.tar.xz  && \
 	mv node-v10.16.3-linux-x64  /node && \
 	# npm install -g cnpm --registry=https://registry.npm.taobao.org  && \
-	npm install puppeteer --global && \
+	# npm install puppeteer --global && \
 	#
 	# 权限
 	#
