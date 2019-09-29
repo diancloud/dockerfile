@@ -156,9 +156,9 @@ RUN cd /tmp  && \
     # 下载编译安装 PHP7
     # 
     cd /tmp && \
-    wget -q "$DOWN/php-7.2.17.tar.gz"  && \
-    tar xfz php-7.2.17.tar.gz && \
-    cd php-7.2.17  && \
+    wget -q "$DOWN/php-7.3.10.tar.gz"  && \
+    tar xfz php-7.3.10.tar.gz && \
+    cd php-7.3.10  && \
     CFLAGS="-O3 -fPIC" ./configure --prefix=/opt/php7 \
 	--with-config-file-path=/opt/php7/etc \
 	--enable-fpm \
@@ -206,7 +206,7 @@ RUN cd /tmp  && \
 	--enable-opcache \
 	--disable-rpath && \
 	make && make install && \
-	cp /tmp/php-7.2.17/php.ini-production  /opt/php7/etc/php.ini && \
+	cp /tmp/php-7.3.10/php.ini-production  /opt/php7/etc/php.ini && \
 	#
 	# 下载编译安装Redis 扩展
 	#
